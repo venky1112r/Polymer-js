@@ -23,6 +23,8 @@ import '@polymer/iron-selector/iron-selector.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import './my-icons.js';
 import'./app-content.js';
+import './app-card.js';
+import './app-footer.js';
 //  import 'node_modules\bootstrap\dist\css\bootstrap.min.css';
 
 
@@ -105,7 +107,7 @@ input[type=text]{
     background:#ddd;
     font-size:17px;
     border:none;
-    cursor:pointer
+    cursor:pointer;
 }
 .search button:hover{
     background:#ccc
@@ -533,6 +535,13 @@ color:fff;
       </div>
 </div>
       <app-content></app-content>
+
+      <hr>
+<app-card></app-card>
+
+<br>
+<app-footer></app-footer>
+      
     `;
 
 
