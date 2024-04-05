@@ -5,6 +5,9 @@ class Footer extends PolymerElement{
 static get template(){
 
     return html`
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-XBBXEoLo1+u+j2v+eN+DvXU/tnaUG06JV6yTl+MQoLs+g3ztt1+FuI4/9Px1b7PCy2c6lKFk2y6eQMeAy+/r8g==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         .footer-container{
             background-color:#1e398f;
@@ -38,8 +41,33 @@ static get template(){
             display: inline-block;
             margin-left: 50px; 
         }
-        
+        .footer-bottom{
+            background-color:#172c6e;
+            color:white;
+           
+            display:flex;
+            align-content:center;
+            justify-content:space-around;
+        }
+        .footer-social{
+            display: flex;
+            align-items:center;
+        }
+        .footer-social ul{
+            display: flex;
+            justify-content:space-between;
+        }
+        .footer-social ul li{
+           list-style: none;
+           margin-right:10px;
+           color:#fff
+        }
+        .footer-social ul li a{
+            color:#fff;
+            text-decoration:none
+        }
     </style>
+
 
 
     <footer>
@@ -220,7 +248,52 @@ static get template(){
                     </table>
             </div>
     </div>
+    <div class="footer-bottom">
+            <div class="footer-social">
+                <h3>
+                    Follow us / Share:
+                </h3>
+                    <ul>
+                        <li>
+                            <a href="" target="_blank">
+                                <i class="fa-brands fa-youtube" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    </ul>
+                
+              </div>
+              <div class="footer-bottom-mid">
+                <p> Toll Free Number : </p>
+                <h5>1800 890 4445 / 1800 425 4445
+                    <br>
+                    Digital Complaints: 044-24371120</h5>
+              </div>
+              <div class="footer-bottom-right">
+                    <p> &copy;  Copyright/ Indian Overseas Bank - 2010 - 2024</p>
+                    <p class="text-center">
+                        <b>Powered by </b>
+                        <a href="" style="color:#fff;">
+                            <b>AJAN</b>
+                        </a>
+                    </p>
+                </div>
         </div>
+     </div>
     </footer>
     
     `;

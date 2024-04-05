@@ -13,6 +13,7 @@
     "test:integration": "polymer build # test that psk builds without error with the CLI"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.5.2",
     "@polymer/app-layout": "^3.0.0-pre.15",
     "@polymer/app-route": "^3.0.0-pre.15",
     "@polymer/iron-flex-layout": "^3.0.0-pre.15",
@@ -23,7 +24,8 @@
     "@polymer/paper-icon-button": "^3.0.0-pre.15",
     "@polymer/polymer": "^3.0.0",
     "@webcomponents/webcomponentsjs": "^2.0.0",
-    "bootstrap": "^5.3.3"
+    "bootstrap": "^5.3.3",
+    "font-awesome": "^4.7.0"
   },
   "devDependencies": {
     "polymer-cli": "^1.7.1",
