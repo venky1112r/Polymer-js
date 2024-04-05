@@ -246,7 +246,7 @@ static get template(){
                             </td>
                         </tr>
                     </table>
-            </div>
+            </div> 
     </div>
     <div class="footer-bottom">
             <div class="footer-social">
@@ -260,7 +260,7 @@ static get template(){
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="" target="_blank">
                                 <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
                             </a>
                         </li>
