@@ -29,7 +29,7 @@ class Content extends PolymerElement{
     
       showSlides() {
         var slides = this.shadowRoot.querySelectorAll(".mySlides");
-        console.log('slide '+ slides.length);
+        
         // Hide all slides
         for (let i = 0; i < slides.length; i++) {
           slides[i].style.display = "none";

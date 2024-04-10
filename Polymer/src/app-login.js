@@ -9,6 +9,11 @@ class Loginform extends PolymerElement{
     static get template(){
 
         return html `
+<app-location route="{{route}}" url-space-regex="^[[rootPath]]">
+         </app-location>
+<app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}">
+         </app-route>
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
      <style>
             .container {
@@ -66,7 +71,7 @@ class Loginform extends PolymerElement{
      <paper-checkbox >Remember UserId</paper-checkbox>  
             <br>
             <br>
-            <button >Login</button>
+            <button on-click="loginbtn" >Login</button>
             <br>
             <hr>
             <div class="login-bottom">
@@ -79,6 +84,10 @@ class Loginform extends PolymerElement{
         </div>
 
         `;
+    }
+    loginbtn(){
+
+        this.set('routeData.page','userdetails');
     }
   
 }

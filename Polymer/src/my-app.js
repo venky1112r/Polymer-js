@@ -28,6 +28,7 @@ import './app-card.js';
 import './app-footer.js';
 import'./app-internetBanking.js';
 import './app-mainPage.js';
+import './app-userDetails.js';
 // import './app-internetBanking.js';
 //  import 'node_modules\bootstrap\dist\css\bootstrap.min.css';
 
@@ -59,6 +60,7 @@ class MyApp extends PolymerElement {
             <my-login name="login"></my-login> -->
             <app-mainpage name ="home"></app-mainpage>
             <app-internetBanking name="internet"></app-internetBanking>
+            <user-details name="userdetails"></user-details>
           </iron-pages>
       
     `;
@@ -88,13 +90,33 @@ class MyApp extends PolymerElement {
      // If no page was found in the route data, page will be an empty string.
      // Show 'view1' in that case. And if the page doesn't exist, show 'view404'.
      if (!page) {
-       this.page = "home";
-     } else if (page=="internet") {
-       this.page = "internet";
-     } else {
-       this.page = "view404";
-     }
+        this.page = "home";
+      } else if (["home","internet", "userdetails"].indexOf(page) !== -1) {
+        this.page = page;
+      } else {
+        this.page = "view404";
+      }
     }
+    _pageChanged(page)
+ {
+    // Import the page component on demand.
+    //
+    // Note: `polymer build` doesn't like string concatenation in the import
+    // statement, so break it up.
+    switch (page)
+ {
+        case "home":
+            import("./app-mainPage.js");
+            break;
+        case "internet":
+            import("./app-internetBanking.js");
+            break;
+        case "userdetails":
+            import("./app-userDetails.js");
+            break;
+      
+    }
+  }
 }
 
 window.customElements.define('my-app', MyApp);

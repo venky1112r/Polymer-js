@@ -8,6 +8,13 @@ class Menu extends PolymerElement{
     static get template(){
         return html`
        
+       <app-location route="{{route}}" url-space-regex="^[[rootPath]]">
+         </app-location>
+   
+         <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}">
+         </app-route>
+
+
 <app-headers></app-headers>
 
 <!-- <app-internetbanking></app-internetbanking> -->
