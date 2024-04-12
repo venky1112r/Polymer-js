@@ -1,12 +1,12 @@
 import { PolymerElement,html } from "@polymer/polymer/polymer-element.js";
 import "@polymer/paper-input/paper-input.js";
 import "@polymer/iron-icon/iron-icon.js";
-import'./app-content.js';
-import './app-header.js';
-import './app-card.js';
-import './app-footer.js';
+import'../Homepage/app-content.js';
+import '../Homepage/app-header.js';
+import '../Homepage/app-card.js';
+import '../Homepage/app-footer.js';
 import'./app-internetBanking.js';
-import './app-mainPage.js';
+import '../Homepage/app-mainPage.js';
 import './app-login.js';
 
 class Internetbanking extends PolymerElement{

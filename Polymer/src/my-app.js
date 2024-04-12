@@ -22,13 +22,13 @@ import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/iron-selector/iron-selector.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import './my-icons.js';
-import'./app-content.js';
-import './app-header.js';
-import './app-card.js';
-import './app-footer.js';
-import'./app-internetBanking.js';
-import './app-mainPage.js';
-import './app-userDetails.js';
+import'./Homepage/app-content.js';
+import './Homepage/app-header.js';
+import './Homepage/app-card.js';
+import './Homepage/app-footer.js';
+import'./Internetbanking/app-internetBanking.js';
+import './Homepage/app-mainPage.js';
+import './Dashboard/app-userDetails.js';
 // import './app-internetBanking.js';
 //  import 'node_modules\bootstrap\dist\css\bootstrap.min.css';
 
@@ -106,13 +106,13 @@ class MyApp extends PolymerElement {
     switch (page)
  {
         case "home":
-            import("./app-mainPage.js");
+            import("./Homepage/app-mainPage.js");
             break;
         case "internet":
-            import("./app-internetBanking.js");
+            import("./Internetbanking/app-internetBanking.js");
             break;
         case "userdetails":
-            import("./app-userDetails.js");
+            import("./Dashboard/app-userDetails.js");
             break;
       
     }

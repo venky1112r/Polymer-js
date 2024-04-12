@@ -21,6 +21,9 @@ class Userdetails extends PolymerElement{
             .left-dashboard-menu{
                 
             }
+            .right-dashboard-menu{
+                padding:20px;
+            }
         </style>
 
         <div>

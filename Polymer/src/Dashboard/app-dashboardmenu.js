@@ -1,6 +1,8 @@
 import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
-import'./my-view1';
+import'../my-view1';
 import "@polymer/iron-icons/iron-icons.js";
+import "@polymer/iron-icons/social-icons.js";
+import "@polymer/iron-icons/av-icons.js";
 
 
 class Dashboardmenu extends PolymerElement{
@@ -11,18 +13,18 @@ class Dashboardmenu extends PolymerElement{
         
         <style>
             .menu-conatiner{
-                background-color:#1e398f;
-             width:200px;
+                background-color:#fff;
+           width:250px;
              height:500px;
             }
       /* Add your styling here */
       .menu-item {
         padding: 10px;
         cursor: pointer;
-        color:#fff;
+        color:#000;
       }
       .menu-item:hover{
-        background-color:black;
+        background-color:#41C9E2;
       }
       .menu-item iron-icon {
         margin-right: 10px;
@@ -38,8 +40,23 @@ class Dashboardmenu extends PolymerElement{
       <div name="accounts" class="menu-item" on-click="_navigateToPage">
         <iron-icon icon="account-balance"></iron-icon>Accounts
       </div>
-      <div name="transactions" class="menu-item" on-click="_navigateToPage">
-        <iron-icon icon="list"></iron-icon>Transactions
+      <div name="transfer" class="menu-item" on-click="_navigateToPage">
+        <iron-icon icon="list"></iron-icon>Transfer
+      </div>
+      <div name="payments" class="menu-item" on-click="_navigateToPage">
+        <iron-icon icon="icons:payment"></iron-icon> Payments
+      </div>
+      <div name="deposits" class="menu-item" on-click="_navigateToPage">
+        <iron-icon icon="av:call-to-action"></iron-icon>Deposit
+      </div>
+      <div name="personaldetails" class="menu-item" on-click="_navigateToPage">
+        <iron-icon icon="social:person"></iron-icon>Personal Information
+      </div>
+      <div name="settings" class="menu-item" on-click="_navigateToPage">
+        <iron-icon icon="icons:settings"></iron-icon>Settings
+      </div>
+      <div name="helpsupport" class="menu-item" on-click="_navigateToPage">
+        <iron-icon icon="icons:help"></iron-icon>Help & Support
       </div>
       <!-- Add more menu items as needed -->
     </iron-selector>
