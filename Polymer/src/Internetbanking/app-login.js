@@ -87,7 +87,48 @@ class Loginform extends PolymerElement{
     }
     loginbtn(){
 
-        this.set('routeData.page','userdetails');
+        // Get the input values
+    const userId = this.shadowRoot.querySelector('paper-input[label="User Id"]').value;
+    const password = this.shadowRoot.querySelector('paper-input[label="Password"]').value;
+
+    // Prepare the request body
+    const requestBody = {
+        userId: userId,
+        password: password
+    };
+
+    // Make the API call
+    fetch('http://localhost:3500/Users', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify(requestBody)
+    })
+    .then(response => {
+        
+        
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Handle the response data, such as redirecting to userdetails page if login is successful
+        console.log(data);
+        const user = data.find(user => user.userId === userId && user.password === password);
+        console.log(user);
+        if (user){
+            this.set('routeData.page', 'userdetails');
+        } else {
+            // Handle login failure, maybe show an error message to the user
+            console.error('Login failed');
+        }
+    })
+    .catch(error => {
+        // Handle error, maybe show an error message to the user
+        console.error('There was a problem with the fetch operation:', error);
+    });
     }
   
 }

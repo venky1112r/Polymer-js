@@ -3,6 +3,7 @@ import'../my-view1';
 import "@polymer/iron-icons/iron-icons.js";
 import "@polymer/iron-icons/social-icons.js";
 import "@polymer/iron-icons/av-icons.js";
+import '@polymer/paper-badge/paper-badge.js';
 
 
 class Dashboardmenu extends PolymerElement{
@@ -29,6 +30,14 @@ class Dashboardmenu extends PolymerElement{
       .menu-item iron-icon {
         margin-right: 10px;
       }
+
+      .menu-item > paper-badge {  
+        text-align:center;
+               --paper-badge-margin-left: -50px;  
+                 
+               --paper-badge-margin-bottom: -200px;  
+                
+            }  
     </style>
 
 
@@ -39,6 +48,7 @@ class Dashboardmenu extends PolymerElement{
       </div>
       <div name="accounts" class="menu-item" on-click="_navigateToPage">
         <iron-icon icon="account-balance"></iron-icon>Accounts
+        <paper-badge id = 'text' label = "1"></paper-badge>  
       </div>
       <div name="transfer" class="menu-item" on-click="_navigateToPage">
         <iron-icon icon="list"></iron-icon>Transfer

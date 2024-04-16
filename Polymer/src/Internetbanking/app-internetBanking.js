@@ -8,6 +8,7 @@ import '../Homepage/app-footer.js';
 import'./app-internetBanking.js';
 import '../Homepage/app-mainPage.js';
 import './app-login.js';
+import './app-register.js';
 
 class Internetbanking extends PolymerElement{
 
@@ -45,7 +46,8 @@ class Internetbanking extends PolymerElement{
             <img src="images/iob/welcome_img-0000.jpg" alt="welcome">
         </div>
         <div class="ib-content-right">
-        <app-login></app-login>
+            <register-page></register-page>
+        <!-- <app-login></app-login> -->
 
         </div>
     </div>

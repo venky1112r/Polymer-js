@@ -29,6 +29,8 @@ import './Homepage/app-footer.js';
 import'./Internetbanking/app-internetBanking.js';
 import './Homepage/app-mainPage.js';
 import './Dashboard/app-userDetails.js';
+import './my-practice.js';
+
 // import './app-internetBanking.js';
 //  import 'node_modules\bootstrap\dist\css\bootstrap.min.css';
 
@@ -61,6 +63,7 @@ class MyApp extends PolymerElement {
             <app-mainpage name ="home"></app-mainpage>
             <app-internetBanking name="internet"></app-internetBanking>
             <user-details name="userdetails"></user-details>
+            <app-practice name="practice"><app-practice>
           </iron-pages>
       
     `;
@@ -91,7 +94,7 @@ class MyApp extends PolymerElement {
      // Show 'view1' in that case. And if the page doesn't exist, show 'view404'.
      if (!page) {
         this.page = "home";
-      } else if (["home","internet", "userdetails"].indexOf(page) !== -1) {
+      } else if (["home","internet", "userdetails","practice"].indexOf(page) !== -1) {
         this.page = page;
       } else {
         this.page = "view404";
@@ -110,6 +113,9 @@ class MyApp extends PolymerElement {
             break;
         case "internet":
             import("./Internetbanking/app-internetBanking.js");
+            break;
+        case "practice":
+            import("./my-practice.js");
             break;
         case "userdetails":
             import("./Dashboard/app-userDetails.js");

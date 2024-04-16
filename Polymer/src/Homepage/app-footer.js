@@ -73,7 +73,7 @@ static get template(){
     <footer>
         <div class="footer-container">
             <div class="footer-line">
-            <marquee>This text will scroll from right to left</marquee>
+            <marquee id="marqueeElement">This text will scroll from right to left</marquee>
             </div>
             <div class="footer">
             <!-- 1st content -->
@@ -297,6 +297,17 @@ static get template(){
     </footer>
     
     `;
+}
+
+connectedCallback() {
+    super.connectedCallback();
+    this.startMarquee();
+}
+
+startMarquee() {
+    const marqueeElement = this.shadowRoot.getElementById('marqueeElement');
+    // Start the marquee animation
+    marqueeElement.start();
 }
 
 }

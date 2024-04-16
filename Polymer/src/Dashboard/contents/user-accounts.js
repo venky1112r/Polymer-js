@@ -1,4 +1,5 @@
 import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
+import '../../Internetbanking/app-register.js';
 
 class Accounts extends PolymerElement{
 
@@ -7,22 +8,7 @@ class Accounts extends PolymerElement{
         return html `
         <h1>Accounts</h1>
 
-        <template>
-    <iron-ajax
-      id="ajax"
-      auto
-      url="/api/accounts"
-      handle-as="json"
-      on-response="_handleAccountsResponse"
-      debounce-duration="300">
-    </iron-ajax>
-
-    <template is="dom-repeat" items="[[accounts]]">
-      <div class="account-item">
-        <span class="account-name">[[item.name]]</span>
-        <span class="account-balance">[[item.balance]]</span>
-        <paper-button on-click="_viewAccountDetails">View Details</paper-button>
-      </div>
+        <register-page></register-page>
     </template>
   </template>
 
