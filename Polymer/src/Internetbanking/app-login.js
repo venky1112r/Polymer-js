@@ -107,11 +107,12 @@ class Loginform extends PolymerElement{
     })
     .then(response => {
         
-        
+       
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         return response.json();
+        
     })
     .then(data => {
         // Handle the response data, such as redirecting to userdetails page if login is successful

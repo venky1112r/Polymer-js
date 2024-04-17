@@ -1,5 +1,6 @@
 import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 import '../../Internetbanking/app-register.js';
+import './form-page.js';
 
 class Accounts extends PolymerElement{
 
@@ -8,7 +9,7 @@ class Accounts extends PolymerElement{
         return html `
         <h1>Accounts</h1>
 
-        <register-page></register-page>
+       <form-page></form-page>
     </template>
   </template>
 

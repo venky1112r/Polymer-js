@@ -5,9 +5,99 @@ import '@polymer/paper-card/paper-card.js';
 
 class Practice extends PolymerElement{
 
+    static get properties() {
+        return {
+          states: {
+            type: Array,
+            value: function() { return []; }
+          },
+          selectedState: {
+            type: String,
+            notify: true
+          }
+        };
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        this.fetchStates();
+      }
+
+      fetchStates() {
+        fetch('https://api.covid19india.org/state_district_wise.json', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            // body: JSON.stringify(requestBody)
+        })
+          .then(response  => {
+            console.log("res"+response);
+        
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+          .then(data => {
+            console.log(data+"check Data");
+            const states = Object.keys(data);
+            this.states = states.map(state => ({ state: state }));
+          })
+          .catch(error => {
+            console.error('Error fetching states:', error);
+          });
+      }
+
     static get template(){
 
         return html `
+ <style>
+        paper-dropdown-menu{
+            --paper-input-container-color: black;
+            width: 220px;
+        }
+        paper-listbox {
+            overflow: hidden;
+          }
+        .lang{
+            width:300px;
+            margin-left:75%;
+          }
+          .lang paper-dropdown-menu{
+            width:150px;
+          }
+          .lang label{
+            font-size:14px;
+          }
+        </style>
+<div class="">
+<div class="lang">
+          <label>Language :</label>
+          <paper-dropdown-menu label="select language">
+              <paper-listbox slot="dropdown-content" selected="{{language}}"  attr-for-selected="value" on-click="clickLanguage">
+                <paper-item value="en">English</paper-item>
+                <paper-item value="ta">Tamil</paper-item>
+                <paper-item value="fr">French</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+
+            <paper-dropdown-menu label="Select State">
+        <paper-listbox slot="dropdown-content" selected="{{selectedState}}">
+          <template is="dom-repeat" items="{{states}}">
+            <paper-item>{{item.state}}</paper-item>
+          </template>
+        </paper-listbox>
+      </paper-dropdown-menu>
+        </div>
+</div>
+
+
+
+
+
+
+
 <style>
     .practice{
         display:flex;
