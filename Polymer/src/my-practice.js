@@ -14,6 +14,12 @@ class Practice extends PolymerElement{
           selectedState: {
             type: String,
             notify: true
+          },
+          language:{
+            type:String
+          },
+          statecode:{
+            type:String
           }
         };
       }
@@ -24,7 +30,7 @@ class Practice extends PolymerElement{
       }
 
       fetchStates() {
-        fetch('https://api.covid19india.org/state_district_wise.json', {
+        fetch('http://localhost:3500/states', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -32,17 +38,27 @@ class Practice extends PolymerElement{
             // body: JSON.stringify(requestBody)
         })
           .then(response  => {
-            console.log("res"+response);
-        
+              
+          console.log()
+             
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             return response.json();
         })
           .then(data => {
-            console.log(data+"check Data");
-            const states = Object.keys(data);
-            this.states = states.map(state => ({ state: state }));
+            console.log("check Data"+JSON.stringify(data));
+           
+           
+          
+            // const states = Object.keys(data);
+            // this.states = states.map(statecode => ({ state: statecode }));
+            const states = data.map(stateObj => ({
+               state: Object.keys(stateObj)[0],
+               statecode: stateObj[Object.keys(stateObj)[0]].statecode
+           }));
+           this.states = states;
+            console.log("end "+JSON.stringify(states));
           })
           .catch(error => {
             console.error('Error fetching states:', error);
@@ -57,9 +73,7 @@ class Practice extends PolymerElement{
             --paper-input-container-color: black;
             width: 220px;
         }
-        paper-listbox {
-            overflow: hidden;
-          }
+        
         .lang{
             width:300px;
             margin-left:75%;
@@ -71,7 +85,7 @@ class Practice extends PolymerElement{
             font-size:14px;
           }
         </style>
-<div class="">
+<div >
 <div class="lang">
           <label>Language :</label>
           <paper-dropdown-menu label="select language">

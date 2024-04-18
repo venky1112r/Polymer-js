@@ -1,6 +1,8 @@
 import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
 import '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
 import '@polymer/paper-listbox/paper-listbox.js';
+import '@polymer/paper-item/paper-item.js';
+
 
 class Formpage extends PolymerElement{
     static get properties() {
@@ -22,7 +24,7 @@ class Formpage extends PolymerElement{
       }
 
       fetchStates() {
-        fetch('https://api.covid19india.org/state_district_wise.json', {
+        fetch('https://data.covid19india.org/data.json', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
