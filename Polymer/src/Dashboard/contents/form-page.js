@@ -11,7 +11,15 @@ class Formpage extends PolymerElement{
             type: Array,
             value: function() { return []; }
           },
+          district: {
+            type: Array,
+            value: function() { return []; }
+          },
           selectedState: {
+            type: String,
+            notify: true
+          },
+          selectedDistrict: {
             type: String,
             notify: true
           }
@@ -24,30 +32,53 @@ class Formpage extends PolymerElement{
       }
 
       fetchStates() {
-        fetch('https://data.covid19india.org/data.json', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            // body: JSON.stringify(requestBody)
-        })
-          .then(response  => {
-            console.log("res"+response);
-            console.log("res"+response.json());
+        fetch('http://localhost:3500/states', {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          // body: JSON.stringify(requestBody)
+      })
+        .then(response  => {
+            
+        console.log()
+           
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+          return response.json();
+      })
+        .then(data => {
+          // console.log("check Data"+data.length);
+          // console.log("check Data"+JSON.stringify(data));
+         
+         
         
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
+          // const states = Object.keys(data);
+          // this.states = states.map(statecode => ({ state: statecode }));
+       //    const states = data.map(stateObj => ({
+       //       state: Object.keys(stateObj)[0],
+       //       statecode: stateObj[Object.keys(stateObj)[0]].statecode
+       //   }));
+       const states = [];
+       for (let i = 0; i < data.length; i++) {
+           const stateObj = data[i];
+           const stat = Object.keys(stateObj);
+
+           for(let j = 0; j < stat.length; j++) {
+             
+             const stateName = stat[j];
+          
+             states.push({ state: stateName });
+           }
+         
+       }
+         this.states = states;
+          // console.log("end "+JSON.stringify(states));
         })
-          .then(data => {
-            console.log(data+"check Data");
-            const states = Object.keys(data);
-            this.states = states.map(state => ({ state: state }));
-          })
-          .catch(error => {
-            console.error('Error fetching states:', error);
-          });
+        .catch(error => {
+          console.error('Error fetching states:', error);
+        });
       }
 
     static get template(){
@@ -69,6 +100,16 @@ class Formpage extends PolymerElement{
         <paper-listbox slot="dropdown-content" selected="{{selectedState}}">
           <template is="dom-repeat" items="{{states}}">
             <paper-item>{{item.state}}</paper-item>
+          </template>
+        </paper-listbox>
+      </paper-dropdown-menu>
+
+
+
+            <paper-dropdown-menu label="Select district">
+        <paper-listbox slot="dropdown-content" selected="{{selectedDistrict}}">
+          <template is="dom-repeat" items="{{district}}">
+            <paper-item>{{item.district}}</paper-item>
           </template>
         </paper-listbox>
       </paper-dropdown-menu>

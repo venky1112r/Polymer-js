@@ -5,13 +5,27 @@ import '@polymer/paper-card/paper-card.js';
 
 class Practice extends PolymerElement{
 
+  
+  
+
     static get properties() {
         return {
-          states: {
+         states: {
             type: Array,
             value: function() { return []; }
           },
+          Districts: {
+            type: Object,
+            value: function() { return []; }
+          },
+        
+         
           selectedState: {
+            type: String,
+            observer: "_stateChanged",
+            notify: true
+          },
+          selectedDistrict: {
             type: String,
             notify: true
           },
@@ -20,9 +34,27 @@ class Practice extends PolymerElement{
           },
           statecode:{
             type:String
+          },
+          disableState:{
+            type:Boolean,
+            value:false
+          },
+          check:{
+            type:Array,
           }
         };
       }
+
+      _stateChanged(newVal, oldVal) {
+
+         console.log("Districts for selected state:", this.Districts[newVal]);
+         this.check=this.Districts[newVal];
+        this.disableState = true;
+        console.log("Selected State: " + this.selectedState);
+        console.log("Selected Districts: " + this.Districts[this.selectedState]);
+
+      }
+
 
       connectedCallback() {
         super.connectedCallback();
@@ -39,29 +71,49 @@ class Practice extends PolymerElement{
         })
           .then(response  => {
               
-          console.log()
              
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             return response.json();
         })
-          .then(data => {
-            console.log("check Data"+JSON.stringify(data));
-           
-           
-          
-            // const states = Object.keys(data);
-            // this.states = states.map(statecode => ({ state: statecode }));
-            const states = data.map(stateObj => ({
-               state: Object.keys(stateObj)[0],
-               statecode: stateObj[Object.keys(stateObj)[0]].statecode
-           }));
-           this.states = states;
-            console.log("end "+JSON.stringify(states));
-          })
+        
+        .then(data => {
+         console.log("check Data"+JSON.stringify(data));
+        
+      //    const states = data.map(stateObj => ({
+      //       state: Object.keys(stateObj)[0],
+      //       statecode: stateObj[Object.keys(stateObj)[0]].statecode
+      //   }));
+      const states=[];
+      const districts = {};
+         data.forEach(stateObj => {
+            console.log("check stateobj "+JSON.stringify(stateObj));
+
+            Object.keys(stateObj).forEach(state => {
+               const stateValue = stateObj[state].districtData;
+               if (stateValue) {
+                  const distName = Object.keys(stateValue);
+                  console.log("check statevalue " + distName);
+                  // const distname1 ={dist:distName};
+                  districts[state] = distName;
+                  console.log("check state " + districts[state]);
+                  states.push({ state: state });
+              }
+            });
+         });
+
+
+        this.states = states;
+        console.log("States with district names: ", states);
+        
+        this.Districts = districts;
+            console.log("Districts by state: ", districts);
+       })
           .catch(error => {
             console.error('Error fetching states:', error);
+            this.states = [];
+            this.districts = {};
           });
       }
 
@@ -95,14 +147,26 @@ class Practice extends PolymerElement{
                 <paper-item value="fr">French</paper-item>
               </paper-listbox>
             </paper-dropdown-menu>
+            <!-- selected-item="{{selectedState}}" -->
+            <paper-dropdown-menu label="Select a state" >
+    <paper-listbox slot="dropdown-content" selected="{{selectedState}}" attr-for-selected="value" >
+    <template is="dom-repeat" items="{{states}}" >
+        <paper-item value="{{item.state}}"> {{item.state}}</paper-item>
+        </template>
+    </paper-listbox>
+</paper-dropdown-menu>
+{{selectedState}}
 
-            <paper-dropdown-menu label="Select State">
-        <paper-listbox slot="dropdown-content" selected="{{selectedState}}">
-          <template is="dom-repeat" items="{{states}}">
-            <paper-item>{{item.state}}</paper-item>
-          </template>
-        </paper-listbox>
-      </paper-dropdown-menu>
+<paper-dropdown-menu label="Select a district" disabled="[[!disableState]]">
+    <paper-listbox slot="dropdown-content" selected="{{selectedDistrict}}" attr-for-selected="value">
+        <template is="dom-repeat" items="{{check}}" >
+            <!-- Use 'item' directly as it represents each district name -->
+            <paper-item value="{{item}}"> {{item}} </paper-item>
+        </template>
+    </paper-listbox>
+</paper-dropdown-menu>
+{{selectedDistrict}}
+
         </div>
 </div>
 
