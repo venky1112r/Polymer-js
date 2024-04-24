@@ -30,6 +30,7 @@ import'./Internetbanking/app-internetBanking.js';
 import './Homepage/app-mainPage.js';
 import './Dashboard/app-userDetails.js';
 import './my-practice.js';
+import './my-view1.js';
 
 // import './app-internetBanking.js';
 //  import 'node_modules\bootstrap\dist\css\bootstrap.min.css';
@@ -54,16 +55,11 @@ class MyApp extends PolymerElement {
          <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}">
          </app-route>
  <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
-            <!-- <my-app name="app"></my-app> -->
-            <!-- <my-home name="home"></my-home>
-            <my-employee name="my-employee"></my-employee>
-          
-            <my-view404 name="view404"></my-view404>
-            <my-login name="login"></my-login> -->
+           
             <app-mainpage name ="home"></app-mainpage>
             <app-internetBanking name="internet"></app-internetBanking>
             <user-details name="userdetails"></user-details>
-            <app-practice name="practice"><app-practice>
+            <app-practice name="practice"></app-practice>
           </iron-pages>
       
     `;
@@ -87,7 +83,7 @@ class MyApp extends PolymerElement {
   }
   _routePageChanged(page)
   {
-   
+    console.log("page"+page);
      // Show the corresponding page according to the route.
      //
      // If no page was found in the route data, page will be an empty string.
@@ -106,8 +102,11 @@ class MyApp extends PolymerElement {
     //
     // Note: `polymer build` doesn't like string concatenation in the import
     // statement, so break it up.
+    console.log("page"+page);
+    
     switch (page)
  {
+ 
         case "home":
             import("./Homepage/app-mainPage.js");
             break;
@@ -122,6 +121,8 @@ class MyApp extends PolymerElement {
             break;
       
     }
+    
+   
   }
 }
 

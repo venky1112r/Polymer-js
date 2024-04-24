@@ -46,8 +46,8 @@ class Internetbanking extends PolymerElement{
             <img src="images/iob/welcome_img-0000.jpg" alt="welcome">
         </div>
         <div class="ib-content-right">
-            <register-page></register-page>
-        <!-- <app-login></app-login> -->
+            <!-- <register-page></register-page> -->
+        <app-login></app-login>
 
         </div>
     </div>

@@ -15,7 +15,7 @@ class Practice extends PolymerElement{
             value: function() { return []; }
           },
           Districts: {
-            type: Object,
+            type: Array,
             value: function() { return []; }
           },
         
@@ -47,11 +47,12 @@ class Practice extends PolymerElement{
 
       _stateChanged(newVal, oldVal) {
 
-         console.log("Districts for selected state:", this.Districts[newVal]);
-         this.check=this.Districts[newVal];
-        this.disableState = true;
-        console.log("Selected State: " + this.selectedState);
-        console.log("Selected Districts: " + this.Districts[this.selectedState]);
+        
+         this.disableState = true;
+        
+         this.Districts = this.check[newVal];
+       
+     
 
       }
 
@@ -86,7 +87,7 @@ class Practice extends PolymerElement{
       //       statecode: stateObj[Object.keys(stateObj)[0]].statecode
       //   }));
       const states=[];
-      const districts = {};
+      var districts = {};
          data.forEach(stateObj => {
             console.log("check stateobj "+JSON.stringify(stateObj));
 
@@ -106,14 +107,14 @@ class Practice extends PolymerElement{
 
         this.states = states;
         console.log("States with district names: ", states);
-        
-        this.Districts = districts;
-            console.log("Districts by state: ", districts);
+        this.check = districts;
+      //   this.Districts = districts;
+            console.log("Districts by state: ", this.Districts);
        })
           .catch(error => {
             console.error('Error fetching states:', error);
             this.states = [];
-            this.districts = {};
+            
           });
       }
 
@@ -155,17 +156,17 @@ class Practice extends PolymerElement{
         </template>
     </paper-listbox>
 </paper-dropdown-menu>
-{{selectedState}}
+
 
 <paper-dropdown-menu label="Select a district" disabled="[[!disableState]]">
     <paper-listbox slot="dropdown-content" selected="{{selectedDistrict}}" attr-for-selected="value">
-        <template is="dom-repeat" items="{{check}}" >
+        <template is="dom-repeat" items="{{Districts}}" >
             <!-- Use 'item' directly as it represents each district name -->
             <paper-item value="{{item}}"> {{item}} </paper-item>
         </template>
     </paper-listbox>
 </paper-dropdown-menu>
-{{selectedDistrict}}
+
 
         </div>
 </div>
