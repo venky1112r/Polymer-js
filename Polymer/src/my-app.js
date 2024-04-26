@@ -59,7 +59,10 @@ class MyApp extends PolymerElement {
             <app-mainpage name ="home"></app-mainpage>
             <app-internetBanking name="internet"></app-internetBanking>
             <user-details name="userdetails"></user-details>
+            <my-testing name="my-testing"></my-testing>
             <app-practice name="practice"></app-practice>
+          
+
           </iron-pages>
       
     `;
@@ -90,7 +93,7 @@ class MyApp extends PolymerElement {
      // Show 'view1' in that case. And if the page doesn't exist, show 'view404'.
      if (!page) {
         this.page = "home";
-      } else if (["home","internet", "userdetails","practice"].indexOf(page) !== -1) {
+      } else if (["home","internet", "userdetails","practice","my-testing"].indexOf(page) !== -1) {
         this.page = page;
       } else {
         this.page = "view404";
@@ -118,6 +121,10 @@ class MyApp extends PolymerElement {
             break;
         case "userdetails":
             import("./Dashboard/app-userDetails.js");
+            break;
+      
+        case "my-testing":
+            import("./my-testing.js");
             break;
       
     }

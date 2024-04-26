@@ -118,9 +118,100 @@ class Practice extends PolymerElement{
           });
       }
 
+      proceed(){
+         // Get all paper-input elements
+         const inputs = this.shadowRoot.querySelectorAll('paper-input');
+         let isValid = true;
+       
+         // Check if all inputs are filled and valid
+         inputs.forEach(input => {
+           if (!input.validate()) {
+             isValid = false;
+             // Display error message if input is invalid
+             input.errorMessage = "This field is required";
+           }
+         });
+       
+         if (isValid) {
+           console.log("done here");
+           // Proceed with further actions
+         } else {
+           // Display a pop-up message or any other error handling mechanism
+           alert("Please fill in all required fields.");
+         }
+       }
+
     static get template(){
 
         return html `
+        <style>
+        .formContainer{
+                border-radius:10px;
+               
+                background-color:#fff;
+                display: block;
+                justify-content:center;
+                align-items:center;
+                padding:50px;
+                margin:20px;
+              }
+              .formInput{
+           margin:20px;
+              }
+              paper-input{
+                width:30%;
+                margin-bottom:20px;
+
+              }
+              paper-button{
+           
+                border-radius:10px;
+                height:10%;
+                width:10%;
+                margin-bottom:20px;
+                background-color:green;
+                color:#fff;
+
+              }
+              .formbtn{
+            margin-right:10%;
+           text-align:right;
+              }   
+        </style>
+
+<div class="formInput">
+         
+         <paper-input label="Name"  error-message="Please enter a valid Name" required></paper-input>
+         <paper-input label="Email"  error-message="Please enter a valid email" required ></paper-input>
+         <paper-input label="Mobile Number" required ></paper-input>
+
+         <paper-input label="Full Name"></paper-input>
+         <paper-input label="Email" value="example@example.com"></paper-input>
+         <paper-input label="Age" type="number"></paper-input>
+         <paper-input label="Username" placeholder="Enter your username"></paper-input>
+         <paper-input label="Password" type="password" required></paper-input>
+         <paper-input label="Disabled Input" disabled></paper-input>
+         <paper-input label="Zip Code" pattern="[0-9]{5}"></paper-input>
+         <paper-input label="Email" error-message="Please enter a valid email"></paper-input>
+         <paper-input label="Age" type="number" auto-validate></paper-input>
+         <paper-input label="Message" char-counter maxlength="100"></paper-input>
+         <paper-input label="Username" maxlength="20"></paper-input>
+
+
+
+         </div>
+         <div class="formbtn">
+          <paper-button class="proceedbtn" raised on-click="proceed" >Proceed</paper-button>
+          </div>
+
+
+
+
+
+
+
+
+
  <style>
         paper-dropdown-menu{
             --paper-input-container-color: black;
