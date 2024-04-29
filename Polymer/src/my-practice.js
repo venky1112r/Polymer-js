@@ -80,7 +80,7 @@ class Practice extends PolymerElement{
         })
         
         .then(data => {
-         console.log("check Data"+JSON.stringify(data));
+         // console.log("check Data"+JSON.stringify(data));
         
       //    const states = data.map(stateObj => ({
       //       state: Object.keys(stateObj)[0],
@@ -89,16 +89,16 @@ class Practice extends PolymerElement{
       const states=[];
       var districts = {};
          data.forEach(stateObj => {
-            console.log("check stateobj "+JSON.stringify(stateObj));
+            // console.log("check stateobj "+JSON.stringify(stateObj));
 
             Object.keys(stateObj).forEach(state => {
                const stateValue = stateObj[state].districtData;
                if (stateValue) {
                   const distName = Object.keys(stateValue);
-                  console.log("check statevalue " + distName);
+                  // console.log("check statevalue " + distName);
                   // const distname1 ={dist:distName};
                   districts[state] = distName;
-                  console.log("check state " + districts[state]);
+                  // console.log("check state " + districts[state]);
                   states.push({ state: state });
               }
             });
@@ -106,10 +106,10 @@ class Practice extends PolymerElement{
 
 
         this.states = states;
-        console.log("States with district names: ", states);
+      //   console.log("States with district names: ", states);
         this.check = districts;
       //   this.Districts = districts;
-            console.log("Districts by state: ", this.Districts);
+            // console.log("Districts by state: ", this.Districts);
        })
           .catch(error => {
             console.error('Error fetching states:', error);

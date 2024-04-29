@@ -1,5 +1,6 @@
 import { PolymerElement,html } from "@polymer/polymer/polymer-element.js";
 import '@polymer/iron-icons/iron-icons.js';
+import './my-stepper.js';
 
 class MyTesting extends PolymerElement {
 
@@ -36,10 +37,23 @@ class MyTesting extends PolymerElement {
           },
           check:{
             type:Array,
+          },
+          
+        steps: {
+            type: Array,
+            value: ['Step 1', 'Step 2', 'Step 3'] // Default steps
+          },
+          currentStep: {
+            type: Number,
+            value: 0 // Current step index
           }
+
         };
       }
     
+      computeStepClass(index) {
+        return index === this.currentStep ? 'active' : '';
+      }
       _stateChanged(newVal, oldVal) {
     
         
@@ -66,7 +80,7 @@ class MyTesting extends PolymerElement {
           })
             .then(response  => {
                 
-            console.log()
+            // console.log()
                
               if (!response.ok) {
                   throw new Error('Network response was not ok');
@@ -74,7 +88,7 @@ class MyTesting extends PolymerElement {
               return response.json();
           })
           .then(data => {
-            console.log("check Data"+JSON.stringify(data));
+            // console.log("check Data"+JSON.stringify(data));
            
          //    const states = data.map(stateObj => ({
          //       state: Object.keys(stateObj)[0],
@@ -83,16 +97,16 @@ class MyTesting extends PolymerElement {
          const states=[];
          var districts = {};
             data.forEach(stateObj => {
-               console.log("check stateobj "+JSON.stringify(stateObj));
+            //    console.log("check stateobj "+JSON.stringify(stateObj));
     
                Object.keys(stateObj).forEach(state => {
                   const stateValue = stateObj[state].districtData;
                   if (stateValue) {
                      const distName = Object.keys(stateValue);
-                     console.log("check statevalue " + distName);
+                    //  console.log("check statevalue " + distName);
                      // const distname1 ={dist:distName};
                      districts[state] = distName;
-                     console.log("check state " + districts[state]);
+                    //  console.log("check state " + districts[state]);
                      states.push({ state: state });
                  }
                });
@@ -100,10 +114,10 @@ class MyTesting extends PolymerElement {
     
     
            this.states = states;
-           console.log("States with district names: ", states);
+        //    console.log("States with district names: ", states);
            this.check = districts;
          //   this.Districts = districts;
-               console.log("Districts by state: ", this.Districts);
+            //    console.log("Districts by state: ", this.Districts);
           })
              .catch(error => {
                console.error('Error fetching states:', error);
@@ -113,24 +127,77 @@ class MyTesting extends PolymerElement {
          }
 
 
-         _handleSubmit(event) {
-            event.preventDefault();
-            // Gather form data
-            const formData = {
-              fullName: this.$.fullName.value,
-              dob: this.$.dob.value,
-              ssn: this.$.ssn.value,
-              contactInfo: this.$.contactInfo.value
-            };
-            // Send formData to server or process it further
-            console.log(formData);
-            // You can implement further processing or submit the data to a server here
+        //  _handleSubmit(event) {
+        //     event.preventDefault();
+        //     // Gather form data
+        //     const formData = {
+        //       fullName: this.$.fullName.value,
+        //       dob: this.$.dob.value,
+        //       ssn: this.$.ssn.value,
+        //       contactInfo: this.$.contactInfo.value
+        //     };
+        //     // Send formData to server or process it further
+        //     // console.log(formData);
+        //     // You can implement further processing or submit the data to a server here
+        //   }
+        submitbtn(event){
+      
+          this.currentStep += 1;
+
+        }
+          proceedbtn(){
+            this.$.form.submit();
+
           }
+
+          _prevStep() {
+            if (this.currentStep > 0) {
+                this.currentStep--;
+            }
+        }
+    
+        _nextStep() {
+            if (this.currentStep < 2) { // Assuming you have 3 steps
+                this.currentStep++;
+            }
+        }
+
+        _pageIndexCheck(currentStep,activeIndex){
+            console.log("currentStep "+currentStep+" activeIndex "+activeIndex);
+            return currentStep == activeIndex;
+            c
+
+        }
+
 
         static get template(){
     
             return html `
             <style>
+
+            /* stepper-component.css */
+.stepper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.step {
+  width: 100px;
+  height: 50px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.step.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
             form {
     max-width: 400px;
     margin: 0 auto;
@@ -207,8 +274,17 @@ class MyTesting extends PolymerElement {
            
             <h1>form</h1>
             <div class="formContainer">
+               <!-- Stepper -->
+               <div class="stepper">
+                    <template is="dom-repeat" items="{{steps}}">
+                        <div class$="step [[computeStepClass(index)]]">{{item}}</div>
+                    </template> 
+                    </div>
+                    <!-- <stepper-demo current-step="{{currentStep}}" steps="{{steps}}" ></stepper-demo> -->
+                <template is="dom-if" if="[[_pageIndexCheck(currentStep,0)]]">
 <!-- 1st form -->
-<form id="personalInfoForm" on-submit="_handleSubmit">
+<form id="personalInfoForm" on-submit="_handleSubmit" > 
+    
         <paper-input label="Full Name" id="fullName" required></paper-input>
         <br>
 
@@ -221,12 +297,26 @@ class MyTesting extends PolymerElement {
         <paper-input label="Contact Information" id="contactInfo" required multiline></paper-input>
         <br>
 
-        <button type="submit">Submit</button>
+        <button type="submit" onclick="submitbtn()">Submit</button>
       </form>
+            </template>
+             <!-- 3rd form -->
+      <template is="dom-if" if="[[_pageIndexCheck(currentStep,1)]]">
+              <div class="formInput" >
+         
+             <paper-input label="Name"  error-message="Please enter a valid Name"></paper-input>
+             <paper-input label="Email"  error-message="Please enter a valid email" ></paper-input>
+             <paper-input label="Mobile Number" ></paper-input>
+             </div>
+             <div class="formbtn">
+              <paper-button class="proceedbtn" raised >Proceed</paper-button>
+              </div>
+            </div>
+            </template>
 <!-- 2nd form -->
-
-            <form id="personalInfoForm" on-submit="_handleSubmit">
-        <label>Full Name:</label>
+<template is="dom-if" if="[[_pageIndexCheck(currentStep,2)]]">
+            <form id="personalInfoForm" on-submit="_handleSubmit" >
+        <label> Name:</label>
         <input type="text" id="fullName" required>
         <br>
 
@@ -243,17 +333,13 @@ class MyTesting extends PolymerElement {
         <br>
 
         <button type="submit">Submit</button>
-      </form>
-              <div class="formInput">
-         
-             <paper-input label="Name"  error-message="Please enter a valid Name"></paper-input>
-             <paper-input label="Email"  error-message="Please enter a valid email" ></paper-input>
-             <paper-input label="Mobile Number" ></paper-input>
-             </div>
-             <div class="formbtn">
-              <paper-button class="proceedbtn" raised >Proceed</paper-button>
-              </div>
-            </div>
+      </form></template>
+     
+
+
+
+
+
             <div class="lang">
              
     
