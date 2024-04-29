@@ -127,24 +127,26 @@ class MyTesting extends PolymerElement {
          }
 
 
-        //  _handleSubmit(event) {
-        //     event.preventDefault();
-        //     // Gather form data
-        //     const formData = {
-        //       fullName: this.$.fullName.value,
-        //       dob: this.$.dob.value,
-        //       ssn: this.$.ssn.value,
-        //       contactInfo: this.$.contactInfo.value
-        //     };
-        //     // Send formData to server or process it further
-        //     // console.log(formData);
-        //     // You can implement further processing or submit the data to a server here
-        //   }
-        submitbtn(event){
-      
-          this.currentStep += 1;
+         _handleSubmit(event) {
+            event.preventDefault();
+            this.currentStep += 1;
 
-        }
+            // Gather form data
+            const formData = {
+              fullName: this.$.fullName.value,
+              dob: this.$.dob.value,
+              ssn: this.$.ssn.value,
+              contactInfo: this.$.contactInfo.value
+            };
+            // Send formData to server or process it further
+            // console.log(formData);
+            // You can implement further processing or submit the data to a server here
+          }
+        // submitbtn(event){
+      
+        //   this.currentStep += 1;
+
+        // }
           proceedbtn(){
             this.$.form.submit();
 
@@ -297,7 +299,7 @@ class MyTesting extends PolymerElement {
         <paper-input label="Contact Information" id="contactInfo" required multiline></paper-input>
         <br>
 
-        <button type="submit" onclick="submitbtn()">Submit</button>
+        <button type="submit" >Submit</button>
       </form>
             </template>
              <!-- 3rd form -->
