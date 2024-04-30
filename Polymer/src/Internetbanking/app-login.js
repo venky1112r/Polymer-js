@@ -61,11 +61,11 @@ class Loginform extends PolymerElement{
         <div class="container">
             <div class="content">
                 <h2>Login <i class="fa fa-lock" aria-hidden="true"></i></h2>
-            <paper-input label = "User Id">  
+            <paper-input label = "User Id" type = "text" required>  
         <iron-icon icon = "account-circle"  prefix></iron-icon>  
      </paper-input>  
        
-     <paper-input label = "Password">  
+     <paper-input label = "Password" type = "password" required>  
         <iron-icon icon = "lock-outline" prefix></iron-icon>  
      </paper-input>  
      <paper-checkbox >Remember UserId</paper-checkbox>  
@@ -86,6 +86,15 @@ class Loginform extends PolymerElement{
         `;
     }
     loginbtn(){
+        const inputs = this.shadowRoot.querySelectorAll('paper-input');
+        let isValid = true;
+        inputs.forEach(input => {
+            if (!input.validate()) {
+              isValid = false;
+              // Display error message if input is invalid
+              input.errorMessage = "This field is required";
+            }
+          });
 
         // Get the input values
     const userId = this.shadowRoot.querySelector('paper-input[label="User Id"]').value;
@@ -118,10 +127,12 @@ class Loginform extends PolymerElement{
         // Handle the response data, such as redirecting to userdetails page if login is successful
         console.log(data);
         const user = data.find(user => user.userId === userId && user.password === password);
+       
         console.log(user);
         if (user){
             this.set('routeData.page', 'userdetails');
         } else {
+         
             // Handle login failure, maybe show an error message to the user
             console.error('Login failed');
         }

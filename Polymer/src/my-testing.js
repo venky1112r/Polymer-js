@@ -6,38 +6,7 @@ class MyTesting extends PolymerElement {
 
     static get properties() {
         return {
-         states: {
-            type: Array,
-            value: function() { return []; }
-          },
-          Districts: {
-            type: Array,
-            value: function() { return []; }
-          },
         
-         
-          selectedState: {
-            type: String,
-            observer: "_stateChanged",
-            notify: true
-          },
-          selectedDistrict: {
-            type: String,
-            notify: true
-          },
-          language:{
-            type:String
-          },
-          statecode:{
-            type:String
-          },
-          disableState:{
-            type:Boolean,
-            value:false
-          },
-          check:{
-            type:Array,
-          },
           
         steps: {
             type: Array,
@@ -45,129 +14,83 @@ class MyTesting extends PolymerElement {
           },
           currentStep: {
             type: Number,
-            value: 0 // Current step index
+            value: 0 ,// Current step index
+            observer: '_currentStepChanged' 
           }
 
         };
       }
     
-      computeStepClass(index) {
-        return index === this.currentStep ? 'active' : '';
-      }
-      _stateChanged(newVal, oldVal) {
-    
-        
-         this.disableState = true;
-        
-         this.Districts = this.check[newVal];
-       
      
-    
-      }
+     
     
           connectedCallback() {
             super.connectedCallback();
-            this.fetchStates();
+            // this.fetchStates();
+            this.computeStepClasses();
           }
     
-          fetchStates() {
-            fetch('http://localhost:3500/states', {
-              method: 'GET',
-              headers: {
-                  'Content-Type': 'application/json'
-              },
-              // body: JSON.stringify(requestBody)
-          })
-            .then(response  => {
-                
-            // console.log()
-               
-              if (!response.ok) {
-                  throw new Error('Network response was not ok');
-              }
-              return response.json();
-          })
-          .then(data => {
-            // console.log("check Data"+JSON.stringify(data));
-           
-         //    const states = data.map(stateObj => ({
-         //       state: Object.keys(stateObj)[0],
-         //       statecode: stateObj[Object.keys(stateObj)[0]].statecode
-         //   }));
-         const states=[];
-         var districts = {};
-            data.forEach(stateObj => {
-            //    console.log("check stateobj "+JSON.stringify(stateObj));
-    
-               Object.keys(stateObj).forEach(state => {
-                  const stateValue = stateObj[state].districtData;
-                  if (stateValue) {
-                     const distName = Object.keys(stateValue);
-                    //  console.log("check statevalue " + distName);
-                     // const distname1 ={dist:distName};
-                     districts[state] = distName;
-                    //  console.log("check state " + districts[state]);
-                     states.push({ state: state });
-                 }
-               });
-            });
-    
-    
-           this.states = states;
-        //    console.log("States with district names: ", states);
-           this.check = districts;
-         //   this.Districts = districts;
-            //    console.log("Districts by state: ", this.Districts);
-          })
-             .catch(error => {
-               console.error('Error fetching states:', error);
-               this.states = [];
-               
-             });
-         }
+          _currentStepChanged(newStep, oldStep) {
+            console.log('currentStep changed from', oldStep, 'to', newStep);
+            // Additional logic or side effects when currentStep changes
+            this.computeStepClasses();
+        }
+        
 
 
          _handleSubmit(event) {
             event.preventDefault();
+           
+            // this.set('currentStep', this.currentStep + 1);
             this.currentStep += 1;
+         
+
+            // this.computeStepClass(this.currentStep);
+            console.log("currentStep "+this.currentStep);
+          
 
             // Gather form data
-            const formData = {
-              fullName: this.$.fullName.value,
-              dob: this.$.dob.value,
-              ssn: this.$.ssn.value,
-              contactInfo: this.$.contactInfo.value
-            };
-            // Send formData to server or process it further
-            // console.log(formData);
-            // You can implement further processing or submit the data to a server here
+            // const formData = {
+            //   fullName: this.$.fullName.value,
+            //   dob: this.$.dob.value,
+            //   ssn: this.$.ssn.value,
+            //   contactInfo: this.$.contactInfo.value
+            // };
+         
           }
-        // submitbtn(event){
+
+          computeStepClasses() {
+            // inde
+            // Loop through steps and set active class for the current step
+            const stepsContainer = this.shadowRoot.querySelector('.stepper');
+            const steps = stepsContainer.querySelectorAll('.step');
+         
+            steps.forEach((step, index) => {
+                console.log("index1 "+index+" currentStep1 "+this.currentStep);
+                console.log("step "+step[0]);
+                step[0].classList.add('active');
+                if ( index ===this.currentStep) {
+                    step.classList.add('active');
+                }
+                 else {
+                    step.classList.remove('active');
+                }
+            });
+        }
+        //   computeStepClass(index) {
+       
+
+        //     console.log("index "+index+" currentStep "+this.currentStep);
+        //     return index === this.currentStep  ? 'active' : '';
+        //   }
+       
       
-        //   this.currentStep += 1;
 
-        // }
-          proceedbtn(){
-            this.$.form.submit();
-
-          }
-
-          _prevStep() {
-            if (this.currentStep > 0) {
-                this.currentStep--;
-            }
-        }
-    
-        _nextStep() {
-            if (this.currentStep < 2) { // Assuming you have 3 steps
-                this.currentStep++;
-            }
-        }
 
         _pageIndexCheck(currentStep,activeIndex){
             console.log("currentStep "+currentStep+" activeIndex "+activeIndex);
             return currentStep == activeIndex;
-            c
+            
 
         }
 
@@ -177,67 +100,67 @@ class MyTesting extends PolymerElement {
             return html `
             <style>
 
-            /* stepper-component.css */
-.stepper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+                /* stepper-component.css */
+                    .stepper {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    }
 
-.step {
-  width: 100px;
-  height: 50px;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+                    .step {
+                    width: 100px;
+                    height: 50px;
+                    border: 2px solid #ccc;
+                    border-radius: 5px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    }
 
-.step.active {
-  background-color: #007bff;
-  color: #fff;
-  border-color: #007bff;
-}
+                    .step.active {
+                    background-color: #007bff;
+                    color: #fff;
+                    border-color: #007bff;
+                    }
 
-            form {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
+                                form {
+                        max-width: 400px;
+                        margin: 0 auto;
+                        padding: 20px;
+                        border: 1px solid #ccc;
+                        border-radius: 5px;
+                        background-color: #f9f9f9;
+                    }
 
-  label {
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
+                    label {
+                        font-weight: bold;
+                        margin-bottom: 5px;
+                    }
 
-  input[type="text"],
-  input[type="date"],
-  textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-  }
+                    input[type="text"],
+                    input[type="date"],
+                    textarea {
+                        width: 100%;
+                        padding: 8px;
+                        margin-bottom: 10px;
+                        border: 1px solid #ccc;
+                        border-radius: 5px;
+                        box-sizing: border-box;
+                    }
 
-  button[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
+                    button[type="submit"] {
+                        background-color: #4CAF50;
+                        color: white;
+                        padding: 10px 20px;
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        font-size: 16px;
+                    }
 
-  button[type="submit"]:hover {
-    background-color: #45a049;
-  }
+                    button[type="submit"]:hover {
+                        background-color: #45a049;
+                    }
 
 
               .formContainer{
@@ -279,13 +202,13 @@ class MyTesting extends PolymerElement {
                <!-- Stepper -->
                <div class="stepper">
                     <template is="dom-repeat" items="{{steps}}">
-                        <div class$="step [[computeStepClass(index)]]">{{item}}</div>
+                        <div class="step ">{{item}}</div>
                     </template> 
                     </div>
                     <!-- <stepper-demo current-step="{{currentStep}}" steps="{{steps}}" ></stepper-demo> -->
                 <template is="dom-if" if="[[_pageIndexCheck(currentStep,0)]]">
 <!-- 1st form -->
-<form id="personalInfoForm" on-submit="_handleSubmit" > 
+        <form id="personalInfoForm" on-submit="_handleSubmit" > 
     
         <paper-input label="Full Name" id="fullName" required></paper-input>
         <br>
@@ -311,7 +234,7 @@ class MyTesting extends PolymerElement {
              <paper-input label="Mobile Number" ></paper-input>
              </div>
              <div class="formbtn">
-              <paper-button class="proceedbtn" raised >Proceed</paper-button>
+              <paper-button class="proceedbtn" on-click="_handleSubmit" raised >Proceed</paper-button>
               </div>
             </div>
             </template>
@@ -342,27 +265,7 @@ class MyTesting extends PolymerElement {
 
 
 
-            <div class="lang">
-             
-    
-                <paper-dropdown-menu label="Select a state" >
-        <paper-listbox slot="dropdown-content" selected="{{selectedState}}" attr-for-selected="value" >
-        <template is="dom-repeat" items="{{states}}" >
-            <paper-item value="{{item.state}}"> {{item.state}}</paper-item>
-            </template>
-        </paper-listbox>
-    </paper-dropdown-menu>
-    
-    
-          <paper-dropdown-menu label="Select a district" disabled="[[!disableState]]">
-        <paper-listbox slot="dropdown-content" selected="{{selectedDistrict}}" attr-for-selected="value">
-            <template is="dom-repeat" items="{{Districts}}" >
-                <!-- Use 'item' directly as it represents each district name -->
-                <paper-item value="{{item}}"> {{item}} </paper-item>
-            </template>
-        </paper-listbox>
-    </paper-dropdown-menu>
-            </div>
+            
             `;
         }
       
