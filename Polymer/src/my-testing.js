@@ -10,7 +10,7 @@ class MyTesting extends PolymerElement {
           
         steps: {
             type: Array,
-            value: ['Step 1', 'Step 2', 'Step 3'] // Default steps
+            value: ['1', '2', '3'] // Default steps
           },
           currentStep: {
             type: Number,
@@ -24,11 +24,11 @@ class MyTesting extends PolymerElement {
      
      
     
-          connectedCallback() {
-            super.connectedCallback();
-            // this.fetchStates();
-            this.computeStepClasses();
-          }
+      connectedCallback() {
+       
+        super.connectedCallback();
+      
+    }
     
           _currentStepChanged(newStep, oldStep) {
             console.log('currentStep changed from', oldStep, 'to', newStep);
@@ -43,8 +43,6 @@ class MyTesting extends PolymerElement {
            
             // this.set('currentStep', this.currentStep + 1);
             this.currentStep += 1;
-         
-
             // this.computeStepClass(this.currentStep);
             console.log("currentStep "+this.currentStep);
           
@@ -60,29 +58,59 @@ class MyTesting extends PolymerElement {
           }
 
           computeStepClasses() {
-            // inde
-            // Loop through steps and set active class for the current step
-            const stepsContainer = this.shadowRoot.querySelector('.stepper');
-            const steps = stepsContainer.querySelectorAll('.step');
-         
+            const steps = this.shadowRoot.querySelectorAll('.step');
             steps.forEach((step, index) => {
-                console.log("index1 "+index+" currentStep1 "+this.currentStep);
-                console.log("step "+step[0]);
-                step[0].classList.add('active');
-                if ( index ===this.currentStep) {
+                step.classList.remove('active');
+                if (index === 2) {
+                    // step.classList.add('active');
+                    step.style.backgroundColor = 'green';
+                }else if(index <= this.currentStep){
                     step.classList.add('active');
-                }
-                 else {
-                    step.classList.remove('active');
                 }
             });
         }
-        //   computeStepClass(index) {
+        
+       
+        //   computeStepClasses() {
+        //     // Check if shadowRoot is available
+        //     if (this.shadowRoot) {
+        //         // Loop through steps and set active class for the current step
+        //         const stepsContainer = this.shadowRoot.querySelector('.stepper');
+        //         console.log("stepsContainer "+stepsContainer);
+        //         if (stepsContainer) {
+        //             const steps = stepsContainer.querySelectorAll('.step');
+               
+
+
+        //             for (let i = 0; i < steps.length; i++) {
+        //                 const step = steps[i];
+        //                 console.log("Step "+step);
+        //                 console.log("index "+i+" currentStep "+this.currentStep);
+        //                 if (i <= this.currentStep) {
+        //                     step.classList.add('active');
+        //                 } else {
+        //                     step.classList.remove('active');
+        //                 }
+        //             }
+
+        //             // steps.forEach((step, index) => {
+        //             //     console.log("index1 "+index+" currentStep1 "+this.currentStep);
+        //             //     // index === this.currentStep[0]  ? 'active' : '';
+        //             //     if (index <= this.currentStep ) {
+        //             //         step.classList.add('active');
+        //             //     } else {
+        //             //         step.classList.remove('active');
+        //             //     }
+        //             // });
+        //         }
+        //     }
+        // }
+          computeStepClass(index) {
        
 
-        //     console.log("index "+index+" currentStep "+this.currentStep);
-        //     return index === this.currentStep  ? 'active' : '';
-        //   }
+            console.log("index "+index+" currentStep "+this.currentStep);
+            return index === this.currentStep  ? 'active' : '';
+          }
        
       
 
@@ -106,24 +134,48 @@ class MyTesting extends PolymerElement {
                     justify-content: space-between;
                     align-items: center;
                     }
-
-                    .step {
-                    width: 100px;
-                    height: 50px;
-                    border: 2px solid #ccc;
-                    border-radius: 5px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+                    .step-container {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
                     }
+
+                     .step {
+                          width: 30px; /* Adjust width of circle */
+                        height: 30px; /* Adjust height of circle */
+                        border-radius: 50%; /* Ensure it's circular */
+                        border: 2px solid #ccc; /* Example border style */
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        position: relative;
+                                    }
 
                     .step.active {
                     background-color: #007bff;
                     color: #fff;
                     border-color: #007bff;
                     }
+                    .tick {
+                        font-size: 1.2em;
+                        color: white;
+                        display: none;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+                    .step.active .tick {
+                        display: inline-block;
+                    }
+                    .progress-line {
+                        flex: 1;
+                        height: 2px; /* Adjust thickness of the progress line */
+                        background-color: #ccc; /* Color of progress line */
+                    }
 
-                                form {
+
+                     form {
                         max-width: 400px;
                         margin: 0 auto;
                         padding: 20px;
@@ -163,54 +215,59 @@ class MyTesting extends PolymerElement {
                     }
 
 
-              .formContainer{
-                border-radius:10px;
-               
-                background-color:#fff;
-                display: block;
-                justify-content:center;
-                align-items:center;
-                padding:50px;
-                margin:20px;
-              }
-              .formInput{
-           margin:20px;
-              }
-              paper-input{
-                width:30%;
-                margin-bottom:20px;
+                        .formContainer{
+                            border-radius:10px;
+                        
+                            background-color:#fff;
+                            display: block;
+                            justify-content:center;
+                            align-items:center;
+                            padding:50px;
+                            margin:20px;
+                        }
+                        .formInput{
+                              margin:20px;
+                        }
+                        paper-input{
+                            width:30%;
+                            margin-bottom:20px;
 
-              }
-              paper-button{
-           
-                border-radius:10px;
-                height:10%;
-                width:10%;
-                margin-bottom:20px;
-                background-color:green;
-                color:#fff;
+                        }
+                        paper-button{
+                    
+                            border-radius:10px;
+                            height:10%;
+                            width:10%;
+                            margin-bottom:20px;
+                            background-color:green;
+                            color:#fff;
 
-              }
-              .formbtn{
-            margin-right:10%;
-           text-align:right;
-              }
+                        }
+                        .formbtn{
+                        margin-right:10%;
+                          text-align:right;
+                        }
             </style>
            
             <h1>form</h1>
             <div class="formContainer">
                <!-- Stepper -->
-               <div class="stepper">
-                    <template is="dom-repeat" items="{{steps}}">
-                        <div class="step ">{{item}}</div>
-                    </template> 
-                    </div>
+               <div class="step-container">
+        <template is="dom-repeat" items="{{steps}}">
+            <div class$="step [[computeStepClass(index)]]">
+                <span class="tick"> &#10004;</span>
+            </div>
+        </template>✔️
+    </div>
+    <div class="progress-line"></div>
                     <!-- <stepper-demo current-step="{{currentStep}}" steps="{{steps}}" ></stepper-demo> -->
                 <template is="dom-if" if="[[_pageIndexCheck(currentStep,0)]]">
 <!-- 1st form -->
         <form id="personalInfoForm" on-submit="_handleSubmit" > 
     
         <paper-input label="Full Name" id="fullName" required></paper-input>
+        <br>
+        <paper-input label="Pan Card" pattern="[A-Z]{5}[0-9]{4}[A-Z]|^$" required error-message="Please enter a pan no" ></paper-input>
         <br>
 
         <paper-input label="Date of Birth" type="date" id="dob" required></paper-input>

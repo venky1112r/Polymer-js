@@ -71,6 +71,7 @@ _stateChanged(newVal, oldVal) {
     _currentStepChanged(newStep, oldStep) {
       console.log('currentStep changed from', oldStep, 'to', newStep);
       // Additional logic or side effects when currentStep changes
+      this.computeStepClasses();
   }
   
 
@@ -95,6 +96,16 @@ _stateChanged(newVal, oldVal) {
       // };
    
     }
+    computeStepClasses() {
+      const steps = this.shadowRoot.querySelectorAll('.step');
+      steps.forEach((step, index) => {
+          step.classList.remove('active');
+          if (index <= this.currentStep) {
+              step.classList.add('active');
+          }
+      });
+  }
+  
     computeStepClass(index) {
  
 
@@ -209,21 +220,47 @@ _stateChanged(newVal, oldVal) {
                     align-items: center;
                     }
 
-                    .step {
-                    width: 100px;
-                    height: 50px;
-                    border: 2px solid #ccc;
-                    border-radius: 5px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+                    .step-container {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
                     }
+
+                     .step {
+                          width: 30px; /* Adjust width of circle */
+                        height: 30px; /* Adjust height of circle */
+                        border-radius: 50%; /* Ensure it's circular */
+                        border: 2px solid #ccc; /* Example border style */
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        position: relative;
+                                    }
+
 
                     .step.active {
                     background-color: #007bff;
                     color: #fff;
                     border-color: #007bff;
                     }
+                    .tick {
+                        font-size: 1.2em;
+                        color: white;
+                        display: none;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+                    .step.active .tick {
+                        display: inline-block;
+                    }
+                    .progress-line {
+                        flex: 1;
+                        height: 2px; /* Adjust thickness of the progress line */
+                        background-color: #ccc; /* Color of progress line */
+                    }
+
                     form {
                         max-width: 400px;
                         margin: 0 auto;
@@ -276,7 +313,7 @@ _stateChanged(newVal, oldVal) {
      margin:20px;
         }
         paper-input{
-          width:30%;
+          width:40%;
           margin-bottom:20px;
 
         }
@@ -298,11 +335,13 @@ _stateChanged(newVal, oldVal) {
      
       <h1>form</h1>
       <div class="formContainer">
-      <div class="stepper">
-                    <template is="dom-repeat" items="{{steps}}">
-                        <div class$="step [[computeStepClass(index)]]">{{item}}</div>
-                    </template> 
-                    </div>
+      <div class="step-container">
+        <template is="dom-repeat" items="{{steps}}">
+            <div class$="step [[computeStepClass(index)]]">
+                <span class="tick">&#10004;</span>
+            </div>
+        </template>
+    </div>
 
   <template is="dom-if" if="[[_pageIndexCheck(currentStep,0)]]">
     
@@ -327,6 +366,7 @@ _stateChanged(newVal, oldVal) {
    
    <paper-input label="Pan Card" pattern="[A-Z]{5}[0-9]{4}[A-Z]" required error-message="Please enter a pan no" ></paper-input>
    <paper-input label="Aadhar Card" type="number" pattern="[0-9]{4} [0-9]{4} [0-9]{4}" error-message="Please enter a Aadhar no"  ></paper-input>
+   <paper-input label="Date of Birth" type="date"></paper-input>
    <paper-input label="Age" type="number"></paper-input>
   </div>
   <div class="formbtn">

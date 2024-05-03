@@ -41,7 +41,7 @@ class Userdetails extends PolymerElement{
                 <div class="right-dashboard-menu">
                     <display-component selected-page="{{routeData.page}}"></display-component>
                 </div>
-            </div>
+            </div> 
             <app-footer></app-footer>
         </div>
         `;
