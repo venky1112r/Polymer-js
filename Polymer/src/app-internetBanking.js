@@ -1,5 +1,5 @@
 import { PolymerElement,html } from "@polymer/polymer/polymer-element.js";
-import "@polymer/paper-input/paper-input.js";
+
 import "@polymer/iron-icon/iron-icon.js";
 import'./app-content.js';
 import './app-header.js';

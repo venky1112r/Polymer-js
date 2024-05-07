@@ -1,5 +1,5 @@
 import { PolymerElement, html } from "@polymer/polymer/polymer-element.js";
-import'./my-view1';
+import './my-view1';
 import "@polymer/iron-icons/iron-icons.js";
 
 
