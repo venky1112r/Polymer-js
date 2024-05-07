@@ -511,13 +511,26 @@ class Header extends PolymerElement{
      }
      ready() {
        super.ready();
+
+       
        const loginbtn = this.shadowRoot.getElementById('loginbtn');
        const loginlist = this.shadowRoot.getElementById('loginlist');
      
      
-       loginbtn.addEventListener('click', () => {
+       loginbtn.addEventListener('click', (event) => {
+        event.stopPropagation();
          loginlist.classList.toggle('show');
-       });
+
+        });
+
+         window.addEventListener('click', (event) => {
+            // Check if the clicked element is not part of the login list
+            if (!loginlist.contains(event.target) && event.target !== loginbtn) {
+                // Close the login list
+                loginlist.classList.remove('show');
+            }
+        });
+      
     }
        internet(){
       

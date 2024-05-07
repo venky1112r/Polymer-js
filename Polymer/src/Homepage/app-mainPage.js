@@ -17,7 +17,7 @@ class Menu extends PolymerElement{
 
 <app-headers></app-headers>
 
-<!-- <app-internetbanking></app-internetbanking> -->
+
       <app-content></app-content>
 
       <hr>

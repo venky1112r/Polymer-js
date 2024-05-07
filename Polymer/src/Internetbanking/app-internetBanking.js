@@ -1,13 +1,14 @@
 import { PolymerElement,html } from "@polymer/polymer/polymer-element.js";
 
 import "@polymer/iron-icon/iron-icon.js";
-import'./app-content.js';
-import './app-header.js';
-import './app-card.js';
-import './app-footer.js';
+import'../Homepage/app-content.js';
+import '../Homepage/app-header.js';
+import '../Homepage/app-card.js';
+import '../Homepage/app-footer.js';
 import'./app-internetBanking.js';
-import './app-mainPage.js';
+import '../Homepage/app-mainPage.js';
 import './app-login.js';
+import './app-register.js';
 
 class Internetbanking extends PolymerElement{
 
@@ -45,7 +46,8 @@ class Internetbanking extends PolymerElement{
             <img src="images/iob/welcome_img-0000.jpg" alt="welcome">
         </div>
         <div class="ib-content-right">
-        <app-login></app-login>
+            <!-- <register-page></register-page> -->
+        <app-login on-login-success="loginSuccessHandler"></app-login>
 
         </div>
     </div>
@@ -56,5 +58,12 @@ class Internetbanking extends PolymerElement{
         `;
 
     }
+
+    loginSuccessHandler(event) {
+        const userName = event.detail.userName;
+        console.log('Received 1 user name :', userName);
+        this.dispatchEvent(new CustomEvent('login-success', { detail: { userName: userName } }));
+    }
+    
 }
 customElements.define('app-internetbanking',Internetbanking);

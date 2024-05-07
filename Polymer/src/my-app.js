@@ -22,13 +22,16 @@ import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/iron-selector/iron-selector.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import './my-icons.js';
-import'./app-content.js';
-import './app-header.js';
-import './app-card.js';
-import './app-footer.js';
-import'./app-internetBanking.js';
-import './app-mainPage.js';
-import './app-userDetails.js';
+import'./Homepage/app-content.js';
+import './Homepage/app-header.js';
+import './Homepage/app-card.js';
+import './Homepage/app-footer.js';
+import'./Internetbanking/app-internetBanking.js';
+import './Homepage/app-mainPage.js';
+import './Dashboard/app-userDetails.js';
+import './my-practice.js';
+import './my-view1.js';
+
 // import './app-internetBanking.js';
 //  import 'node_modules\bootstrap\dist\css\bootstrap.min.css';
 
@@ -52,15 +55,15 @@ class MyApp extends PolymerElement {
          <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}">
          </app-route>
  <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
-            <!-- <my-app name="app"></my-app> -->
-            <!-- <my-home name="home"></my-home>
-            <my-employee name="my-employee"></my-employee>
-          
-            <my-view404 name="view404"></my-view404>
-            <my-login name="login"></my-login> -->
+           
             <app-mainpage name ="home"></app-mainpage>
-            <app-internetBanking name="internet"></app-internetBanking>
-            <user-details name="userdetails"></user-details>
+            <app-internetBanking name="internet" on-login-success="_loginSuccessHandler" ></app-internetBanking>
+            <user-details name="userdetails" user-name="[[userName]]"></user-details>
+            <my-testing name="my-testing"></my-testing>
+            <app-practice name="practice"></app-practice>
+            <stepper-demo name="stepper"></stepper-demo>
+          
+
           </iron-pages>
       
     `;
@@ -76,6 +79,10 @@ class MyApp extends PolymerElement {
       },
       routeData: Object,
       subroute: Object,
+      userName: {
+        type: String,
+        value: ''
+    }
     };
   }
 
@@ -84,14 +91,14 @@ class MyApp extends PolymerElement {
   }
   _routePageChanged(page)
   {
-   
+    console.log("page"+page);
      // Show the corresponding page according to the route.
      //
      // If no page was found in the route data, page will be an empty string.
      // Show 'view1' in that case. And if the page doesn't exist, show 'view404'.
      if (!page) {
         this.page = "home";
-      } else if (["home","internet", "userdetails"].indexOf(page) !== -1) {
+      } else if (["home","internet", "userdetails","practice","my-testing","stepper"].indexOf(page) !== -1) {
         this.page = page;
       } else {
         this.page = "view404";
@@ -103,20 +110,43 @@ class MyApp extends PolymerElement {
     //
     // Note: `polymer build` doesn't like string concatenation in the import
     // statement, so break it up.
+    console.log("page"+page);
+    
     switch (page)
  {
+ 
         case "home":
-            import("./app-mainPage.js");
+            import("./Homepage/app-mainPage.js");
             break;
         case "internet":
-            import("./app-internetBanking.js");
+            import("./Internetbanking/app-internetBanking.js");
+            break;
+        case "practice":
+            import("./my-practice.js");
             break;
         case "userdetails":
-            import("./app-userDetails.js");
+            import("./Dashboard/app-userDetails.js");
+            break;
+      
+        case "my-testing":
+            import("./my-testing.js");
+            break;
+      
+        case "stepper":
+            import("./my-stepper.js");
             break;
       
     }
+    
+   
   }
+  _loginSuccessHandler(event) {
+    const userName = event.detail.userName;
+    console.log("user myapp" + userName);
+    this.set('userName', userName);
+    this.set('routeData.page', 'userdetails');
+    
+}
 }
 
 window.customElements.define('my-app', MyApp);

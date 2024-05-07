@@ -6,6 +6,16 @@ import '@polymer/app-route/app-route.js';
 
 class Userdetails extends PolymerElement{
 
+    static get properties(){
+
+        return {
+            userName:{
+                type:String,
+                value:'',
+                observer: '_userNameChanged'
+            }
+        }
+    }
     static get template(){
 
         return html `
@@ -21,6 +31,10 @@ class Userdetails extends PolymerElement{
             .left-dashboard-menu{
                 
             }
+            .right-dashboard-menu{
+                width:100%;
+                padding:20px;
+            }
         </style>
 
         <div>
@@ -30,6 +44,8 @@ class Userdetails extends PolymerElement{
 
          
             <app-headers></app-headers>
+            <h2>Welcome, [[userName]]!</h2>
+            
             <div class="dasboard-container">
                 <div class="left-dashboard-menu">
                     <dashboard-menu></dashboard-menu>
@@ -37,16 +53,22 @@ class Userdetails extends PolymerElement{
                 <div class="right-dashboard-menu">
                     <display-component selected-page="{{routeData.page}}"></display-component>
                 </div>
-            </div>
-            <app-footer></app-footer>
+            </div> 
+            <!-- <app-footer></app-footer> -->
         </div>
         `;
 
+    }
+    _userNameChanged(newUserName) {
+        console.log('User name changed:', newUserName);
+        // You can perform any additional actions here when the user name changes
     }
     connectedCallback() {
         super.connectedCallback();
         // Listen for menu-item-selected events from dashboard-menu
         this.addEventListener('menu-item-selected', this._handleMenuItemSelected.bind(this));
+        this.addEventListener('login-success', this._handleLoginSuccess.bind(this));
+        console.log("userdetails" + this.userName);
     }
 
     _handleMenuItemSelected(event) {
@@ -56,5 +78,11 @@ class Userdetails extends PolymerElement{
             displayComponent.selectedPage = event.detail.page;
         }
     }
+    _handleLoginSuccess(event) {
+        const userName = event.detail.userName;
+        console.log('Received user name from login-success event:', userName);
+        this.set('userName', userName);
+    }
+   
 }
 customElements.define('user-details',Userdetails);
