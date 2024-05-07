@@ -57,8 +57,8 @@ class MyApp extends PolymerElement {
  <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
            
             <app-mainpage name ="home"></app-mainpage>
-            <app-internetBanking name="internet"></app-internetBanking>
-            <user-details name="userdetails"></user-details>
+            <app-internetBanking name="internet" on-login-success="_loginSuccessHandler" ></app-internetBanking>
+            <user-details name="userdetails" user-name="[[userName]]"></user-details>
             <my-testing name="my-testing"></my-testing>
             <app-practice name="practice"></app-practice>
             <stepper-demo name="stepper"></stepper-demo>
@@ -79,6 +79,10 @@ class MyApp extends PolymerElement {
       },
       routeData: Object,
       subroute: Object,
+      userName: {
+        type: String,
+        value: ''
+    }
     };
   }
 
@@ -136,6 +140,13 @@ class MyApp extends PolymerElement {
     
    
   }
+  _loginSuccessHandler(event) {
+    const userName = event.detail.userName;
+    console.log("user myapp" + userName);
+    this.set('userName', userName);
+    this.set('routeData.page', 'userdetails');
+    
+}
 }
 
 window.customElements.define('my-app', MyApp);

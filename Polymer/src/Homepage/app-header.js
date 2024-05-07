@@ -511,6 +511,8 @@ class Header extends PolymerElement{
      }
      ready() {
        super.ready();
+
+       
        const loginbtn = this.shadowRoot.getElementById('loginbtn');
        const loginlist = this.shadowRoot.getElementById('loginlist');
      

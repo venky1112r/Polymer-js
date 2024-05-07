@@ -47,7 +47,7 @@ class Internetbanking extends PolymerElement{
         </div>
         <div class="ib-content-right">
             <!-- <register-page></register-page> -->
-        <app-login></app-login>
+        <app-login on-login-success="loginSuccessHandler"></app-login>
 
         </div>
     </div>
@@ -58,5 +58,12 @@ class Internetbanking extends PolymerElement{
         `;
 
     }
+
+    loginSuccessHandler(event) {
+        const userName = event.detail.userName;
+        console.log('Received 1 user name :', userName);
+        this.dispatchEvent(new CustomEvent('login-success', { detail: { userName: userName } }));
+    }
+    
 }
 customElements.define('app-internetbanking',Internetbanking);
