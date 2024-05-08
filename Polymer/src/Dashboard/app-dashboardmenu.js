@@ -73,9 +73,9 @@ class Dashboardmenu extends PolymerElement{
         </div>
 
 
-          
+           
         
-        `;
+        `; 
     }
     _navigateToPage(event) {
         const pageName = event.currentTarget.getAttribute('name'); // Get the page name from the clicked menu item

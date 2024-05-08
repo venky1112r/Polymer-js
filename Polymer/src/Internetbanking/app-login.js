@@ -60,7 +60,7 @@ class Loginform extends PolymerElement{
                 color: #fff;
                 border: none;
                 padding: 10px 20px;
-                border-radius: 4px;
+                border-radius: 4px; 
                 cursor: pointer;
 
             }

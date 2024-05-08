@@ -38,7 +38,7 @@ class Displaycontent extends PolymerElement{
           <user-notification name="notification"></user-notification>
           <user-settings name="settings"></user-settings>
           <user-transfer name="transfer"></user-transfer>
-          <user-payments name="payments"></user-payments>
+          <user-payments name="payments"></user-payments> 
           <user-deposits name="deposits"></user-deposits>
           <help-support name="helpsupport"></help-support>
       

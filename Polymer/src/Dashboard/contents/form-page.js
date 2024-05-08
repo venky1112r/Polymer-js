@@ -360,7 +360,7 @@ _stateChanged(newVal, oldVal) {
 
 
       <template is="dom-if" if="[[_pageIndexCheck(currentStep,1)]]">
-    
+     
 
 <div class="formInput">
    

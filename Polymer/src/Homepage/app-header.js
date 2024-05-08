@@ -501,7 +501,7 @@ class Header extends PolymerElement{
                            
                                                    </div>
                                                    </div>
-                                                 </div>
+                                                 </div> 
          </div>
    </div>
         

@@ -22,7 +22,7 @@ class Menu extends PolymerElement{
 
       <hr>
 <app-card></app-card>
-
+ 
 <br>
 <app-footer></app-footer>
 

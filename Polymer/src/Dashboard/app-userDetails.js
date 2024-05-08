@@ -58,7 +58,7 @@ class Userdetails extends PolymerElement{
         </div>
         `;
 
-    }
+    } 
     _userNameChanged(newUserName) {
         console.log('User name changed:', newUserName);
         // You can perform any additional actions here when the user name changes
@@ -66,7 +66,7 @@ class Userdetails extends PolymerElement{
     connectedCallback() {
         super.connectedCallback();
         // Listen for menu-item-selected events from dashboard-menu
-        // this.addEventListener('menu-item-selected', this._handleMenuItemSelected.bind(this));
+        this.addEventListener('menu-item-selected', this._handleMenuItemSelected.bind(this));
         this.addEventListener('login-success', this._handleLoginSuccess.bind(this));
         console.log("userdetails" + this.userName);
     }
