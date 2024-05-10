@@ -13,6 +13,12 @@ class Userdetails extends PolymerElement{
                 type:String,
                 value:'',
                 observer: '_userNameChanged'
+            },
+            data:{
+                type:Boolean,
+                value:false,
+                notify:true,
+                observer: '_dataChanged'
             }
         }
     }
@@ -43,7 +49,7 @@ class Userdetails extends PolymerElement{
          </app-route>
 
          
-            <app-headers></app-headers>
+            <app-headers data={{data}}></app-headers>
             <h2>Welcome, [[userName]]!</h2>
             
             <div class="dasboard-container">
@@ -54,13 +60,17 @@ class Userdetails extends PolymerElement{
                     <display-component selected-page="{{routeData.page}}"></display-component>
                 </div>
             </div> 
-            <app-footer></app-footer>
+            <!-- <app-footer></app-footer> -->
         </div>
         `;
 
     } 
+    _dataChanged(newData) {
+        console.log('Data changed:', newData);
+    }
     _userNameChanged(newUserName) {
         console.log('User name changed:', newUserName);
+
         // You can perform any additional actions here when the user name changes
     }
     connectedCallback() {
@@ -68,9 +78,15 @@ class Userdetails extends PolymerElement{
         // Listen for menu-item-selected events from dashboard-menu
         this.addEventListener('menu-item-selected', this._handleMenuItemSelected.bind(this));
         this.addEventListener('login-success', this._handleLoginSuccess.bind(this));
-        console.log("userdetails" + this.userName);
+    //    this.addEventListener('login-state-changed', this._handleLoginStateChanged.bind(this));
+        // console.log("userdetails" + this.userName);
     }
 
+    _handleLoginStateChanged(event) {
+        console.log('Login state changed:', event.detail.loggedIn);
+        const loggedIn = event.detail.loggedIn;
+        
+    }
     _handleMenuItemSelected(event) {
         const displayComponent = this.shadowRoot.querySelector('display-component');
         if (displayComponent) {
@@ -79,9 +95,11 @@ class Userdetails extends PolymerElement{
         }
     }
     _handleLoginSuccess(event) {
+       
         const userName = event.detail.userName;
-        console.log('Received user name from login-success event:', userName);
+        // console.log('Received user name from login-success event:', userName);
         this.set('userName', userName);
+        this.data=true;
     }
    
 }

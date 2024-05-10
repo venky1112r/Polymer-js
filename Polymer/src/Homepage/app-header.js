@@ -153,11 +153,21 @@ class Header extends PolymerElement{
    }
    
    .loginlist li:hover{
+    cursor:pointer;
      border-radius:10px;
      background-image:linear-gradient(0deg,#23388e,#1166bf);
-   color:fff;
+   color:#fff;
    
    }
+   .loginlist p:hover{
+     border-radius:10px;
+     background-image:linear-gradient(0deg,#23388e,#1166bf);
+   color:#fff;
+   
+   }
+  
+   
+   
    #loginlist ul {
      list-style-type: none; /* Remove bullet points */
      padding: 0;
@@ -180,6 +190,77 @@ class Header extends PolymerElement{
      color:white; /* Text color for list items on hover */
    }
    
+   #logoutBtn {
+    background-color: #ff0000; /* Red background color */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    
+}
+#logoutBtn:hover {
+    background-color: #cc0000; /* Darker red background color on hover */
+    color: #fff;
+
+}
+
+/* Logout button icon */
+#logoutIcon {
+    margin-right: 5px;
+}
+
+/* Profile dropdown styles */
+.profile-dropdown {
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 10px;
+    top: 40px;
+    right: 0;
+    z-index: 1000;
+    display: none; /* Initially hide the dropdown */
+}
+
+#profileDropdown.show {
+     display:block;
+}
+
+.profile-dropdown li:hover {
+    background-color: #f0f0f0; /* Light gray background on hover */
+    cursor: pointer;
+    border-radius: 5px;
+
+}
+
+#profileDropdown ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+}
+#profileDropdown li {
+    margin-bottom: 5px;
+    padding:5px;
+    list-style-type:none;
+}
+
+.profile-dropdown li a {
+    display: block;
+    padding: 5px 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+.profile-dropdown li a:hover {
+    background-color: #f0f0f0; /* Light gray background on hover */
+}
+
+/* Show the dropdown when Logout button is hovered */
+#logoutBtn:hover .profile-dropdown {
+    display: block;
+}
    
    .header-right-bottom{
        display:flex;
@@ -237,160 +318,9 @@ class Header extends PolymerElement{
        background-color:#fff;
        box-shadow:0 2px 15px -10px #000
    }
-   .pro-carousal.owl-carousel .owl-nav.disabled,.tab-content>.active{
-       display:block!important
-   }
-   .announce-carousal .owl-nav button span,.classic-arrows3 .owl-nav,.hero-carousal .owl-nav button span,.main-pill>.inner-mega,.owl-dots,.secondary-menu-detail-inner .second-menu-tab-item,.tab-content>.tab-pane{
-       display:none
-   }
-   .bottom-button{
-       margin:0 0 0 40px
-   }
-   .bottom-button button{
-       border:none;
-       padding:8px 30px;
-       color:#fff;
-       background:url(../images/contact.png) 0 0/100% auto no-repeat
-   }
-   .menu-txt{
-       font-size:16px
-   }
-   .btn:focus{
-       outline:0;
-       box-shadow:none
-   }
-   .site-nav{
-       margin:8px;
-       z-index:9
-   }
-   .site-nav>ul{
-       display:flex;
-       margin:0;
-       align-items:center;
-       justify-content:space-between
-   }
-   .site-nav>ul>li:hover .megaMenu{
-       opacity:1;
-       visibility:visible
-   }
-   .site-nav>ul>li>a{
-       color:#1e398f;
-       padding:5px 0;
-       display:inline-block;
-       position:relative
-   }
-   .megaMenu{
-       position:absolute;
-       width:130%;
-       left:-15%;
-       height:100vh;
-       z-index:99;
-       background:url(../images/dropdown.png) 50% 0 no-repeat;
-       transition:.5s;
-       display:flex;
-       padding:10px 180px
-   }
-   .banner-slider,.left-img,.side-img,.way-bank-single{
-       position:relative
-   }
-   .megaMenu>ul>li>div{
-       position:absolute;
-       top:0;
-       margin-left:300px;
-       width:665px
-   }
-   .inner-mega>ul{
-       display:flex;
-       flex-direction:column;
-       max-height:350px;
-       flex-wrap:wrap;
-       max-width:50%
-   }
-   .inner-mega>ul>li{
-       padding:2px 4px;
-       white-space:break-spaces
-   }
-   .inner-mega>ul>li a{
-       line-height:25px!important
-   }
-   .main-pill.active>.inner-mega ul li a:hover{
-       color:#0091ed
-   }
-   .main-pill.active{
-       background:#abdbf9;
-       border-radius:17px
-   }
-   .right-side{
-       display:flex;
-       flex-direction:row
-   }
-   .right-side .first,.right-side .second,.right-side .third{
-       width:50%
-   }
-   .right-side .first ul,.right-side .second ul,.right-side .third ul{
-       display:flex;
-       flex-direction:column
-   }
-   .banner-slider{
-       top:50px
-   }
-   .top-slide{
-       padding:0 40px
-   }
-   .hero-carousal .owl-nav button{
-       height:44px;
-       border-radius:100%;
-       position:absolute;
-       right:-22px;
-       -webkit-box-shadow:0 0 5px 0 rgba(0,0,0,.2);
-       box-shadow:0 0 5px 0 rgba(0,0,0,.2);
-       display:flex;
-       align-items:center;
-       justify-content:center
-   }
-   .announce-carousal .owl-nav button::after,.hero-carousal .owl-nav button::after{
-       content:'\f105';
-       font-family:FontAwesome
-   }
-   .hero-carousal .owl-nav button.owl-prev{
-       right:inherit;
-       left:-22px;
-       transform:rotate(180deg)
-   }
-   .announce-carousal .owl-nav button:focus,.hero-carousal .owl-dot:focus,.hero-carousal .owl-nav button:focus{
-       outline:0
-   }
-   .hero-carousal .owl-dots{
-       position:absolute;
-       width:100%;
-       left:0;
-       bottom:20px;
-       text-align:center;
-       z-index:5
-   }
-   .hero-carousal .owl-dot{
-       display:inline-block;
-       width:10px;
-       height:10px;
-       border-radius:100%;
-       background:#1e398f!important;
-       margin:0 2px;
-       cursor:pointer
-   }
-   .hero-carousal .owl-dot.active{
-       background:#fff!important
-   }
-   .tab .tablinks.active,.tab .tablinks:hover{
-       background-image:linear-gradient(180deg,#dff1fd,#f4fafe);
-       color:#0c96ee
-   }
-   .hero-carousal .item{
-       height:auto
-   }
-   .hero-carousal .owl-stage-outer{
-       border-radius:15px;
-       overflow:hidden
-   }
+  
+  
+   
    
    
          </style>
@@ -460,7 +390,8 @@ class Header extends PolymerElement{
                                      
    
    </div>
-   <div class="top-button">
+   <div id="topButtonContainer" class="top-button"> </div>
+   <!-- <div class="top-button">
        
                
                  <button id="loginbtn"> Login  <i id="loginIcon" class="fa fa-lock" aria-hidden="true"></i></button>
@@ -487,21 +418,23 @@ class Header extends PolymerElement{
                </ul>
           
       
+   </div> -->
    </div>
-   </div>
-   <div class="header-right-bottom">
-       <div id="menubartop_primarynav" class="main-menu">
-           <div class='head'>
-               <nav>
-                   <ul class='nav nav-tabs flex-nowrap' id='tablist'>
-                       <li>
-                           <a class='' data-cookie='1'>
-                               <span>Personal Banking</span>
-                           </a>
-                           
-                                                   </div>
-                                                   </div>
-                                                 </div> 
+                <div class="header-right-bottom">
+                    <div id="menubartop_primarynav" class="main-menu">
+                        <div class='head'>
+                            <nav>
+                                <ul class='nav nav-tabs flex-nowrap' id='tablist'>
+                                    <li>
+                                        <a class='' data-cookie='1'>
+                                            <span>Personal Banking</span>
+                                        </a>
+                                        </li>
+                                        <!-- <li> <p on-click="internet">Internet Banking Personal Login</p></li> -->
+                                        
+                                                                </div>
+                                                                </div>
+                                                                </div> 
          </div>
    </div>
         
@@ -509,13 +442,52 @@ class Header extends PolymerElement{
    
    
      }
+
+     static get properties() {
+        return {
+            isLoggedIn: {
+                type: Boolean,
+                value: false ,// Initially the user is not logged in
+               
+            },
+            data: {
+                type: Boolean,
+                value: false,
+                observer: '_dataChanged'
+            }
+           
+        };
+    }
+ 
+        _dataChanged(newVal, oldVal) {
+            console.log('Login state changed:', newVal);
+            this._render();
+        }
+    
      ready() {
        super.ready();
+     
+    //    console.log("check header");
+    //    this.addEventListener('login-state-changed', (event) => {
+    //     console.log("event "+event);
+    //     console.log('Received login-state-changed event:', event.detail.loggedIn);
+    //     this.isLoggedIn = event.detail.loggedIn;
+    //     this._render();
+    // });
 
+
+    // Render UI initially
+    this._render();
        
        const loginbtn = this.shadowRoot.getElementById('loginbtn');
+     
        const loginlist = this.shadowRoot.getElementById('loginlist');
      
+            const  InternetBanking= this.shadowRoot.getElementById('InternetBanking');
+            InternetBanking.addEventListener('click', () => {
+                this.internet();
+            })
+
      
        loginbtn.addEventListener('click', (event) => {
         event.stopPropagation();
@@ -530,12 +502,126 @@ class Header extends PolymerElement{
                 loginlist.classList.remove('show');
             }
         });
+        this.addEventListener('login-state-changed', this._handleLoginStateChanged.bind(this));
       
+
+
+
     }
-       internet(){
+    _handleLoginStateChanged(event) {
+        const loggedIn = event.detail.loggedIn;
+        console.log('Received login state changed event:', loggedIn);
+        // this.set('isLoggedIn', loggedIn);
+        this.data = loggedIn;
+        this._render();
+       
+    }
+
+    _renderLoginButton() {
+ console.log("check render login button");
+            // If user is not logged in, render a button with login functionality
+            return html`
+            <!-- <div class="top-button"> -->
+               
+                <!-- <button id="loginbtn" on-click="_showLoginOptions"> Login <i id="loginIcon" class="fa fa-lock" aria-hidden="true"></i></button> -->
+                <button id="loginbtn"> Login  <i id="loginIcon" class="fa fa-lock" aria-hidden="true"></i></button>
+              
+               <ul id="loginlist" class="loginlist">
+                   <li>
+                       <p  id="InternetBanking" >Internet Banking Personal Login</p>
+                   </li>
+                   <li>
+                       <a href="" target="_blank">Internet Banking Corporate Login</a>
+                   </li>
+                   <li>
+                       <a href="" target="_blank">Credit Card Customer Portal</a>
+                   </li>
+                   <li>
+                       <a href="" target="_blank">FASTag</a>
+                   </li>
+                   <li>
+                       <a href="Staff-and-ex-staff" target="_blank">Staff & Ex-Staff</a>
+                   </li>
+                   <li>
+                       <a href="" target="_blank">Avail Locker @ IOB</a>
+                   </li>
+               </ul>
+          
+            <!-- </div> -->
+            `;
+            
+        }
+        internet(){
+            console.log("Internet Banking Personal Login clicked");
       
-        this.set('routeData.page','internet')
-       }
+            this.set('routeData.page','internet')
+           }
+       
+    
+
+    _renderProfileDropdown() {
+        console.log("check render profile dropdown");
+        return html`
+      
+                <button id="logoutBtn" > Logout <i id="logoutIcon" class="fa fa-sign-out" aria-hidden="true"></i></button>
+
+
+
+            <button id="profileBtn">
+                <i class="fa fa-user-circle" aria-hidden="true"></i>
+            </button>
+            <ul id="profileDropdown" class="profile-dropdown">
+                <li><a href="#">Account Details</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        `;
+    }
+
+    _render() {
+        console.log("check render header"); 
+        const topButtonContainer = this.shadowRoot.querySelector('#topButtonContainer');
+
+        // if (this.data) {
+        //     // If user is logged in, render a logout button
+        //    const profile =  this._renderProfileDropdown();
+        //    topButtonContainer.innerHTML = profile.innerHTML;
+        // } else {
+        //     // If user is logged out, render a login button
+        //     const login =  this._renderLoginButton();
+        //     topButtonContainer.innerHTML = login.innerHTML;
+        // }
+        if (topButtonContainer) {
+          
+  
+            const content = this.data ? this._renderProfileDropdown() : this._renderLoginButton();
+            
+            topButtonContainer.innerHTML = content.innerHTML;
+    //    console.log("check render"+ content.innerHTML,"check1", topButtonContainer.appendChild(content),"check2",topButtonContainer );
+          
+        }
+    }
+      
+       _showLoginOptions() {
+        // Show login options when login button is clicked
+        console.log("login clicked");
+        const loginList = this.shadowRoot.querySelector('#loginlist');
+        if (loginList) {
+            loginList.classList.toggle('show');
+            loginList.hidden = !loginList.hidden;
+        }
+    }
+
+    _logout() {
+        console.log("logout clicked");
+        // Handle logout action
+        // Perform any necessary actions like clearing session, updating UI, etc.
+        this.isLoggedIn = false;
+        this._render(); // Update UI after logout
+    }
+
+   
+
  
 }
 customElements.define('app-headers',Header);

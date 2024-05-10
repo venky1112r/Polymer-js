@@ -193,8 +193,8 @@ class Loginform extends PolymerElement{
         // Send a request to check if the user exists with the provided username and encrypted password
         fetch('http://localhost:3500/Users?userId=' + username + '&password=' + password)
            .then(response => {
-            console.log('res '+JSON.stringify(response));
-            console.log('res '+response.length);
+            // console.log('res '+JSON.stringify(response));
+            // console.log('res '+response.length);
               if (response.ok) {
                     return response.json();
               } else {
@@ -202,14 +202,21 @@ class Loginform extends PolymerElement{
               }
            })
            .then(data => {
-            console.log('data '+JSON.stringify(data));console.log('data lenght  '+data.length);
+            // console.log('data '+JSON.stringify(data));console.log('data lenght  '+data.length);
               // If the user exists, navigate to a new page (e.g., home page)
               if (data.length > 0) {
                 
                     // this.set('routeData.page', 'userdetails');
                     const user = username;
                     this.set('loggedInUser', user);
-                    this.dispatchEvent(new CustomEvent('login-success', { detail: { userName : username }, bubbles: true, composed: true }));
+                    const loggedIn = true; 
+                    this.dispatchEvent(new CustomEvent('login-success', { detail: { userName : username ,loggedIn   }, bubbles: true, composed: true }));
+                   
+                    // this.dispatchEvent(new CustomEvent('login-state-changed', {
+                    //     detail: { loggedIn },
+                    //     bubbles: true, // Make the event bubble up the DOM tree
+                    //     composed: true // Ensure the event can cross the shadow DOM boundary
+                    // }));
               } else {
                     // If the user does not exist, you can display an error message or handle it accordingly
                     console.error('User not found.');

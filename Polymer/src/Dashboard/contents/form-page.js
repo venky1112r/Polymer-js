@@ -69,7 +69,9 @@ _stateChanged(newVal, oldVal) {
     }
 
     _currentStepChanged(newStep, oldStep) {
-      console.log('currentStep changed from', oldStep, 'to', newStep);
+      // console.log('currentStep changed from', oldStep, 'to', newStep);
+
+
       // Additional logic or side effects when currentStep changes
       this.computeStepClasses();
   }
@@ -84,7 +86,7 @@ _stateChanged(newVal, oldVal) {
 
 
       this.computeStepClass(this.currentStep);
-      console.log("currentStep "+this.currentStep);
+      // console.log("currentStep "+this.currentStep);
     
 
       // Gather form data
@@ -109,12 +111,12 @@ _stateChanged(newVal, oldVal) {
     computeStepClass(index) {
  
 
-      console.log("index "+index+" currentStep "+this.currentStep);
+      // console.log("index "+index+" currentStep "+this.currentStep);
       return index === this.currentStep  ? 'active' : '';
     }
  
   _pageIndexCheck(currentStep,activeIndex){
-      console.log("currentStep "+currentStep+" activeIndex "+activeIndex);
+      // console.log("currentStep "+currentStep+" activeIndex "+activeIndex);
       return currentStep == activeIndex;
       
 
@@ -130,7 +132,7 @@ _stateChanged(newVal, oldVal) {
     })
       .then(response  => {
           
-      console.log()
+      // console.log()
          
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -200,9 +202,9 @@ _stateChanged(newVal, oldVal) {
 
 
       this.computeStepClass(this.currentStep);
-      console.log("currentStep "+this.currentStep);
+      // console.log("currentStep "+this.currentStep);
     
-      console.log("done here");
+      // console.log("done here");
       // Proceed with further actions
     } else {
       // Display a pop-up message or any other error handling mechanism
