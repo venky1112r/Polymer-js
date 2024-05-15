@@ -75,6 +75,8 @@ class Userdetails extends PolymerElement{
     }
     connectedCallback() {
         super.connectedCallback();
+       
+       
         // Listen for menu-item-selected events from dashboard-menu
         this.addEventListener('menu-item-selected', this._handleMenuItemSelected.bind(this));
         this.addEventListener('login-success', this._handleLoginSuccess.bind(this));
@@ -96,9 +98,10 @@ class Userdetails extends PolymerElement{
     }
     _handleLoginSuccess(event) {
        
-        const userName = event.detail.userName;
+        const userName = event.detail.userName; 
         // console.log('Received user name from login-success event:', userName);
         this.set('userName', userName);
+        
         this.data=true;
     }
    

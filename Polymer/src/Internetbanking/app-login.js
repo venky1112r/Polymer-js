@@ -209,7 +209,11 @@ class Loginform extends PolymerElement{
                     // this.set('routeData.page', 'userdetails');
                     const user = username;
                     this.set('loggedInUser', user);
+                    sessionStorage.setItem('isLoggedIn', 'true');
+                    sessionStorage.setItem('user', user);
+                    sessionStorage.setItem('loginTime', Date.now());
                     const loggedIn = true; 
+                    
                     this.dispatchEvent(new CustomEvent('login-success', { detail: { userName : username ,loggedIn   }, bubbles: true, composed: true }));
                    
                     // this.dispatchEvent(new CustomEvent('login-state-changed', {

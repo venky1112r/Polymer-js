@@ -4,7 +4,6 @@ import './app-header.js';
 import './app-card.js';
 import './app-footer.js';
 class Menu extends PolymerElement{
-
     static get template(){
         return html`
        
@@ -15,7 +14,7 @@ class Menu extends PolymerElement{
          </app-route>
 
 
-<app-headers></app-headers>
+<app-headers ></app-headers>
 
 
       <app-content></app-content>

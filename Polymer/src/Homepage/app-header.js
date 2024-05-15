@@ -431,15 +431,15 @@ class Header extends PolymerElement{
                                         </a>
                                         </li>
                                         <!-- <li> <p on-click="internet">Internet Banking Personal Login</p></li> -->
+                                       
                                         
                                                                 </div>
-                                                                </div>
-                                                                </div> 
+                                                          </div>
+                                       </div> 
          </div>
    </div>
         
        `;
-   
    
      }
 
@@ -466,59 +466,39 @@ class Header extends PolymerElement{
     
      ready() {
        super.ready();
-     
-    //    console.log("check header");
-    //    this.addEventListener('login-state-changed', (event) => {
-    //     console.log("event "+event);
-    //     console.log('Received login-state-changed event:', event.detail.loggedIn);
-    //     this.isLoggedIn = event.detail.loggedIn;
-    //     this._render();
-    // });
+         const isLoggedIn = sessionStorage.getItem('isLoggedIn') ;
+         console.log("check login "+isLoggedIn);
+         
+         this.data = isLoggedIn === 'true'; // Convert to boolean
 
+        
 
     // Render UI initially
     this._render();
-       
-       const loginbtn = this.shadowRoot.getElementById('loginbtn');
-     
-       const loginlist = this.shadowRoot.getElementById('loginlist');
-     
-            const  InternetBanking= this.shadowRoot.getElementById('InternetBanking');
-            InternetBanking.addEventListener('click', () => {
-                this.internet();
-            })
-
-     
-       loginbtn.addEventListener('click', (event) => {
-        event.stopPropagation();
-         loginlist.classList.toggle('show');
-
-        });
-
-         window.addEventListener('click', (event) => {
-            // Check if the clicked element is not part of the login list
-            if (!loginlist.contains(event.target) && event.target !== loginbtn) {
-                // Close the login list
-                loginlist.classList.remove('show');
-            }
-        });
-        this.addEventListener('login-state-changed', this._handleLoginStateChanged.bind(this));
-      
-
-
-
+   
     }
-    _handleLoginStateChanged(event) {
-        const loggedIn = event.detail.loggedIn;
-        console.log('Received login state changed event:', loggedIn);
-        // this.set('isLoggedIn', loggedIn);
-        this.data = loggedIn;
-        this._render();
-       
+
+    startSessionTimer() {
+        // Get the login time from session storage
+        const loginTime = parseInt(sessionStorage.getItem('loginTime'), 10) || Date.now();
+        
+        // Calculate session timeout duration (e.g., 30 minutes)
+        const sessionTimeout = 30 * 1000; // 30 minutes in milliseconds
+
+        // Calculate the time remaining until the session expires
+        const timeRemaining = loginTime + sessionTimeout - Date.now();
+
+        // Start a timer to automatically log the user out when the session expires
+        setTimeout(() => {
+            this._logout();
+            alert('Session expired. You have been logged out.'); // Optional: Show an alert to notify the user
+        }, timeRemaining);
     }
+  
 
     _renderLoginButton() {
  console.log("check render login button");
+
             // If user is not logged in, render a button with login functionality
             return html`
             <!-- <div class="top-button"> -->
@@ -553,21 +533,21 @@ class Header extends PolymerElement{
         }
         internet(){
             console.log("Internet Banking Personal Login clicked");
-      
+           
+
             this.set('routeData.page','internet')
            }
-       
-    
 
     _renderProfileDropdown() {
         console.log("check render profile dropdown");
+
         return html`
       
+                <!-- <button id="logoutBtn" > Logout<i id="logoutIcon" class="fa fa-sign-out" aria-hidden="true"></i></button> -->
                 <button id="logoutBtn" > Logout <i id="logoutIcon" class="fa fa-sign-out" aria-hidden="true"></i></button>
 
 
-
-            <button id="profileBtn">
+            <button id="profileBtn" on-click="_toggleProfileDropdown">
                 <i class="fa fa-user-circle" aria-hidden="true"></i>
             </button>
             <ul id="profileDropdown" class="profile-dropdown">
@@ -577,51 +557,94 @@ class Header extends PolymerElement{
             </ul>
         `;
     }
+    _toggleProfileDropdown() {
+        console.log("check toggle profile dropdown");
+        const profileDropdown = this.shadowRoot.querySelector('#profileDropdown');
+        profileDropdown.classList.toggle('show'); // Toggle visibility of the dropdown
+    }
 
     _render() {
         console.log("check render header"); 
+
+        
         const topButtonContainer = this.shadowRoot.querySelector('#topButtonContainer');
 
-        // if (this.data) {
-        //     // If user is logged in, render a logout button
-        //    const profile =  this._renderProfileDropdown();
-        //    topButtonContainer.innerHTML = profile.innerHTML;
-        // } else {
-        //     // If user is logged out, render a login button
-        //     const login =  this._renderLoginButton();
-        //     topButtonContainer.innerHTML = login.innerHTML;
-        // }
-        if (topButtonContainer) {
-          
   
-            const content = this.data ? this._renderProfileDropdown() : this._renderLoginButton();
-            
+        if (topButtonContainer) {
+          if(this.data == false ) {
+            const content =  this._renderLoginButton() ;
             topButtonContainer.innerHTML = content.innerHTML;
-    //    console.log("check render"+ content.innerHTML,"check1", topButtonContainer.appendChild(content),"check2",topButtonContainer );
-          
-        }
-    }
-      
-       _showLoginOptions() {
-        // Show login options when login button is clicked
-        console.log("login clicked");
-        const loginList = this.shadowRoot.querySelector('#loginlist');
-        if (loginList) {
-            loginList.classList.toggle('show');
-            loginList.hidden = !loginList.hidden;
-        }
-    }
+          }
+          else if(this.data == true) {
+            const content =  this._renderProfileDropdown() ;
+            topButtonContainer.innerHTML = content.innerHTML;
+          }
 
+            
+          const profileBtn = this.shadowRoot.querySelector('#profileBtn');
+
+          const loginbtn = this.shadowRoot.querySelector('#loginbtn');
+          if (loginbtn || profileBtn) {
+            if(loginbtn) {
+              loginbtn.addEventListener('click', (event) => {
+                  event.stopPropagation();
+                  const loginlist = this.shadowRoot.querySelector('#loginlist');
+                  if (loginlist) {
+                      loginlist.classList.toggle('show');
+                  }
+              });
+            }
+            else{
+                profileBtn.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    const profileDropdown = this.shadowRoot.querySelector('#profileDropdown');
+                    if (profileDropdown) {
+                        profileDropdown.classList.toggle('show');
+                    }
+                });
+            }
+          }
+ 
+          const InternetBanking = this.shadowRoot.querySelector('#InternetBanking');
+          if (InternetBanking) {
+              InternetBanking.addEventListener('click', () => {
+                  this.internet();
+              });
+          }
+  
+          const loginlist = this.shadowRoot.querySelector('#loginlist');
+          if (loginlist) {
+              window.addEventListener('click', (event) => {
+                  if (!loginlist.contains(event.target) && event.target !== loginbtn) {
+                      loginlist.classList.remove('show');
+                  }
+              });
+          }
+          const logoutBtn = this.shadowRoot.querySelector('#logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                this._logout();
+            });
+        }
+
+      }
+          
+
+ // const content = this.data ? this._renderProfileDropdown() :this._renderLoginButton() ;
+      
+        }
+    
     _logout() {
         console.log("logout clicked");
         // Handle logout action
         // Perform any necessary actions like clearing session, updating UI, etc.
-        this.isLoggedIn = false;
-        this._render(); // Update UI after logout
+        sessionStorage.setItem('isLoggedIn','false');
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('loginTime');
+        this.data = false;
+        // this._render(); // Update UI after logout    
+        this.set('routeData.page','home');
     }
-
-   
-
  
 }
 customElements.define('app-headers',Header);

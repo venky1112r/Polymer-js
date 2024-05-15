@@ -60,6 +60,7 @@ class Internetbanking extends PolymerElement{
     }
 
     loginSuccessHandler(event) {
+        console.log('Received login success event 22:', event);
         const userName = event.detail.userName;
         console.log('Received 1 user name :', userName);
         this.dispatchEvent(new CustomEvent('login-success', { detail: { userName: userName } }));
