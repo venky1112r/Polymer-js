@@ -1,4 +1,19 @@
 {
+  "data": [
+    {
+      "id": "d44a",
+      "name": "qw",
+      "email": "",
+      "address": "srf",
+      "dob": "1666-02-02",
+      "mobile": "1234567890",
+      "pan": "ASDFG3456H",
+      "aadhar": "123412341234",
+      "age": "88",
+      "district": "North and Middle Andaman",
+      "state": "Andaman and Nicobar Islands"
+    }
+  ],
   "Users": [
     {
       "id": 3001,
@@ -29,9 +44,22 @@
       "id": "9a8d",
       "userId": "1",
       "password": "1"
+    },
+    {
+      "id": "5a5d",
+      "name": "qe",
+      "email": "",
+      "address": "S",
+      "dob": "1212-01-11",
+      "mobile": "1232121211",
+      "pan": "QWERT3333E",
+      "aadhar": "123412341234",
+      "age": "77",
+      "district": "North and Middle Andaman",
+      "state": "Andaman and Nicobar Islands"
     }
   ],
-  "states":[
+  "states": [
     {
       "State Unassigned": {
         "districtData": {

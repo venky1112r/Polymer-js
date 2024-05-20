@@ -469,9 +469,8 @@ class Header extends PolymerElement{
          const isLoggedIn = sessionStorage.getItem('isLoggedIn') ;
          console.log("check login "+isLoggedIn);
          
-         this.data = isLoggedIn === 'true'; // Convert to boolean
+         this.data = isLoggedIn ; // Convert to boolean
 
-        
 
     // Render UI initially
     this._render();

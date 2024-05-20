@@ -48,7 +48,16 @@ class Formpage extends PolymerElement{   static get properties() {
       type: Number,
       value: 0 ,// Current step index
       observer: '_currentStepChanged' 
-    }
+    },
+    name:String,
+    email:String,
+    address:String,
+    dob:String,
+    mobile:String,
+    pan:String,
+    aadhar:String,
+    age:String,
+   
   };
 }
 
@@ -82,20 +91,40 @@ _stateChanged(newVal, oldVal) {
       event.preventDefault();
      
       // this.set('currentStep', this.currentStep + 1);
-      this.currentStep += 1;
+      const formData = {
+        name: this.name,
+        email: this.email,
+        address: this.address,
+        dob: this.dob,
+        mobile: this.mobile,
+        pan: this.pan,
+        aadhar: this.aadhar,
+        age: this.age,
+        district :this.selectedDistrict,
+        state :this.selectedState
+      };
 
-
-      this.computeStepClass(this.currentStep);
-      // console.log("currentStep "+this.currentStep);
-    
-
-      // Gather form data
-      // const formData = {
-      //   fullName: this.$.fullName.value,
-      //   dob: this.$.dob.value,
-      //   ssn: this.$.ssn.value,
-      //   contactInfo: this.$.contactInfo.value
-      // };
+      console.log(formData);
+      fetch('http://localhost:3500/data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log(data);
+          this.set('currentStep', this.currentStep + 1);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
    
     }
     computeStepClasses() {
@@ -109,7 +138,6 @@ _stateChanged(newVal, oldVal) {
   }
   
     computeStepClass(index) {
- 
 
       // console.log("index "+index+" currentStep "+this.currentStep);
       return index === this.currentStep  ? 'active' : '';
@@ -118,7 +146,6 @@ _stateChanged(newVal, oldVal) {
   _pageIndexCheck(currentStep,activeIndex){
       // console.log("currentStep "+currentStep+" activeIndex "+activeIndex);
       return currentStep == activeIndex;
-      
 
   }
 
@@ -184,6 +211,8 @@ _stateChanged(newVal, oldVal) {
 
     const inputs = this.shadowRoot.querySelectorAll('paper-input');
     let isValid = true;
+
+  
   
     // Check if all inputs are filled and valid
     inputs.forEach(input => {
@@ -195,17 +224,10 @@ _stateChanged(newVal, oldVal) {
     });
   
     if (isValid) {
-   
-     
       // this.set('currentStep', this.currentStep + 1);
       this.currentStep += 1;
-
-
       this.computeStepClass(this.currentStep);
       // console.log("currentStep "+this.currentStep);
-    
-      // console.log("done here");
-      // Proceed with further actions
     } else {
       // Display a pop-up message or any other error handling mechanism
       // alert("Please fill in all required fields.");
@@ -350,9 +372,9 @@ _stateChanged(newVal, oldVal) {
 <!-- 1st form -->
 <div class="formInput">
    
-   <paper-input label="Name"  error-message="Please enter a valid Name" required ></paper-input>
-   <paper-input label="Email"type="email" error-message="Please enter a valid email"  ></paper-input>
-   <paper-input label="Mobile Number" type="tel" pattern="[0-9]{10}" required ></paper-input>
+   <paper-input label="Name"  error-message="Please enter a valid Name" value={{name}} required ></paper-input>
+   <paper-input label="Email"type="email" error-message="Please enter a valid email" value={{email}}  ></paper-input>
+   <paper-input label="Mobile Number" type="tel" pattern="[0-9]{10}" error-message="Please enter a valid mobile no" value={{mobile}} required ></paper-input>
   </div>
   <div class="formbtn">
    <paper-button class="proceedbtn" on-click="proceed" raised >Proceed</paper-button>
@@ -366,10 +388,10 @@ _stateChanged(newVal, oldVal) {
 
 <div class="formInput">
    
-   <paper-input label="Pan Card" pattern="[A-Z]{5}[0-9]{4}[A-Z]" required error-message="Please enter a pan no" ></paper-input>
-   <paper-input label="Aadhar Card" type="number" pattern="[0-9]{4} [0-9]{4} [0-9]{4}" error-message="Please enter a Aadhar no"  ></paper-input>
-   <paper-input label="Date of Birth" type="date"></paper-input>
-   <paper-input label="Age" type="number"></paper-input>
+   <paper-input label="Pan Card" pattern="[A-Z]{5}[0-9]{4}[A-Z]" value={{pan}} required error-message="Please enter a pan no" ></paper-input>
+   <paper-input label="Aadhar Card" type="number" pattern="[0-9]{4} [0-9]{4} [0-9]{4}"  value={{aadhar}} required error-message="Please enter a Aadhar no"  ></paper-input>
+   <paper-input label="Date of Birth" type="date" value={{dob}}></paper-input>
+   <paper-input label="Age" type="number" value={{age}}></paper-input>
   </div>
   <div class="formbtn">
    <paper-button class="proceedbtn" on-click="proceed" raised >Proceed</paper-button>
@@ -383,7 +405,7 @@ _stateChanged(newVal, oldVal) {
 <!-- 1st form -->
 <div class="formInput">
    
-   <paper-input label="Address"  error-message="Please fill address" ></paper-input>
+   <paper-input label="Address" value={{address}}  error-message="Please fill address" ></paper-input>
    <paper-dropdown-menu label="Select a state" >
   <paper-listbox slot="dropdown-content" selected="{{selectedState}}" attr-for-selected="value" >
   <template is="dom-repeat" items="{{states}}" >
@@ -402,7 +424,7 @@ _stateChanged(newVal, oldVal) {
 </paper-dropdown-menu>
   </div>
   <div class="formbtn">
-   <paper-button class="proceedbtn" on-click="proceed" raised >Proceed</paper-button>
+   <paper-button class="proceedbtn" on-click="_handleSubmit" raised >Submit</paper-button>
    </div>
       </template>
     

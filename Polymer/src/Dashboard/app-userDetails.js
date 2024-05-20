@@ -82,6 +82,12 @@ class Userdetails extends PolymerElement{
         this.addEventListener('login-success', this._handleLoginSuccess.bind(this));
     //    this.addEventListener('login-state-changed', this._handleLoginStateChanged.bind(this));
         // console.log("userdetails" + this.userName);
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn') ;
+       if(isLoggedIn === "true"){
+        this.userName = sessionStorage.getItem('user');
+        this.data = true;
+        console.log("sesion storage" + this.userName);
+       }
     }
 
     _handleLoginStateChanged(event) {
