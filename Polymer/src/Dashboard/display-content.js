@@ -21,7 +21,7 @@ class Displaycontent extends PolymerElement{
         return {
           selectedPage: {
             type: String,
-            value: '' // Default to view1
+            value: 'dashboard' // Default to view1
           },
         };
       }

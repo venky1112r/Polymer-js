@@ -1,19 +1,4 @@
 {
-  "data": [
-    {
-      "id": "d44a",
-      "name": "qw",
-      "email": "",
-      "address": "srf",
-      "dob": "1666-02-02",
-      "mobile": "1234567890",
-      "pan": "ASDFG3456H",
-      "aadhar": "123412341234",
-      "age": "88",
-      "district": "North and Middle Andaman",
-      "state": "Andaman and Nicobar Islands"
-    }
-  ],
   "Users": [
     {
       "id": 3001,
@@ -27,36 +12,129 @@
     },
     {
       "id": "e29a",
-      "userId": "akasj",
-      "password": "aksh"
+      "userId": "asai",
+      "password": "thambi"
     },
     {
       "id": "dddb",
-      "userId": "Akash",
-      "password": "akash"
+      "userId": "josh",
+      "password": "josh"
     },
     {
       "id": "9a9d",
-      "userId": "Akash",
-      "password": "akash"
+      "userId": "Niro",
+      "password": "niro"
     },
     {
       "id": "9a8d",
       "userId": "1",
       "password": "1"
+    }
+  ],
+  "data": [
+    {
+      "id": "5842",
+      "name": "Nirosha",
+      "email": "niro@gmail.com",
+      "address": "34",
+      "dob": "1800-12-11",
+      "mobile": "7894566123",
+      "pan": "ASDFF6789W",
+      "aadhar": "098778900987",
+      "age": "88",
+      "district": "Chittoor",
+      "state": "Andhra Pradesh"
     },
     {
-      "id": "5a5d",
-      "name": "qe",
+      "id": "e8ea",
+      "name": "Asai",
+      "email": "asai@gmail.com",
+      "address": "e4",
+      "dob": "1999-11-11",
+      "mobile": "7417417410",
+      "pan": "POIUY3456W",
+      "aadhar": "789789456456",
+      "age": "24",
+      "district": "Chittoor",
+      "state": "Andhra Pradesh"
+    },
+    {
+      "id": "b21e",
+      "name": "Josh",
+      "email": "josh@gmail.com",
+      "address": "33",
+      "dob": "1999-12-12",
+      "mobile": "9879879874",
+      "pan": "QASDF2345E",
+      "aadhar": "369963963963",
+      "age": "25",
+      "district": "Visakhapatnam",
+      "state": "Andhra Pradesh"
+    },
+    {
+      "id": "5deb",
+      "name": "Akash",
+      "email": "akash@gmail.com",
+      "address": "3",
+      "dob": "2000-12-11",
+      "mobile": "7871795610",
+      "pan": "BVCXZ4352Q",
+      "aadhar": "987447896521",
+      "age": "23",
+      "district": "Chennai",
+      "state": "Tamil Nadu"
+    },
+    {
+      "id": "b45b",
+      "name": "vini",
+      "email": "vini@gmail.com",
+      "address": "11",
+      "dob": "1999-08-11",
+      "mobile": "7897897896",
+      "pan": "AQWSD3456R",
+      "aadhar": "741085209630",
+      "age": "25",
+      "district": "Kallakurichi",
+      "state": "Tamil Nadu"
+    },
+    {
+      "id": "eb68",
+      "name": "Dinesh",
+      "email": "dinesh@gmail.com",
+      "address": "45",
+      "dob": "2000-12-31",
+      "mobile": "8939232112",
+      "pan": "POIUY7890U",
+      "aadhar": "789641257854",
+      "age": "23",
+      "district": "Thiruvallur",
+      "state": "Tamil Nadu"
+    },
+    {
+      "id": "28e0",
+      "name": "Naveen",
       "email": "",
-      "address": "S",
-      "dob": "1212-01-11",
-      "mobile": "1232121211",
-      "pan": "QWERT3333E",
-      "aadhar": "123412341234",
-      "age": "77",
-      "district": "North and Middle Andaman",
-      "state": "Andaman and Nicobar Islands"
+      "address": "545",
+      "dob": "1999-01-04",
+      "mobile": "7412589632",
+      "pan": "ASDFF4567Y",
+      "aadhar": "456123652211",
+      "age": "23",
+      "district": "Barpeta",
+      "state": "Assam"
+    },
+    {
+      "id": "0c51",
+      "name": "karthi",
+      "email": "",
+      "address": "5",
+      "dob": "1999-02-01",
+      "mobile": "7412589632",
+      "pan": "ASDFG0987E",
+      "aadhar": "474114785236",
+      "age": "23",
+      "district": "Chittoor",
+      "state": "Andhra Pradesh"
     }
   ],
   "states": [

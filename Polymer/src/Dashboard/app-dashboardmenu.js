@@ -8,6 +8,8 @@ import '@polymer/paper-badge/paper-badge.js';
 
 class Dashboardmenu extends PolymerElement{
 
+ 
+
     static get template(){
 
         return html `
@@ -72,15 +74,15 @@ class Dashboardmenu extends PolymerElement{
     </iron-selector>
         </div>
 
-
-           
         
         `; 
     }
     _navigateToPage(event) {
         const pageName = event.currentTarget.getAttribute('name'); // Get the page name from the clicked menu item
         const route = event.currentTarget.getAttribute('route');
-        this.dispatchEvent(new CustomEvent('menu-item-selected', { detail: { page: pageName, route:route }, bubbles: true, composed: true }));
+        this.dispatchEvent(new CustomEvent('menu-item-selected', { detail: { page: pageName}, bubbles: true, composed: true }));
     }
+    
+    
 }
 customElements.define('dashboard-menu', Dashboardmenu);

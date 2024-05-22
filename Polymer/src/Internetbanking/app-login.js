@@ -196,13 +196,15 @@ class Loginform extends PolymerElement{
             // console.log('res '+JSON.stringify(response));
             // console.log('res '+response.length);
               if (response.ok) {
+                console.log('Network response was ok.'+ response);
                     return response.json();
+                    
               } else {
                     throw new Error('Network response was not ok.');
               }
            })
            .then(data => {
-            // console.log('data '+JSON.stringify(data));console.log('data lenght  '+data.length);
+            console.log('data cgg '+JSON.stringify(data));console.log('data lenght  '+data.length);
               // If the user exists, navigate to a new page (e.g., home page)
               if (data.length > 0) {
                 
@@ -211,7 +213,7 @@ class Loginform extends PolymerElement{
                     this.set('loggedInUser', user);
                     sessionStorage.setItem('isLoggedIn', 'true');
                     sessionStorage.setItem('user', user);
-                    sessionStorage.setItem('loginTime', Date.now());
+                    sessionStorage.setItem('loginTime', Date.now()); 
                     const loggedIn = true; 
                     
                     this.dispatchEvent(new CustomEvent('login-success', { detail: { userName : username ,loggedIn   }, bubbles: true, composed: true }));

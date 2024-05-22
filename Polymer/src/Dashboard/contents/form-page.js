@@ -4,6 +4,9 @@ import '@polymer/paper-listbox/paper-listbox.js';
 import '@polymer/paper-item/paper-item.js';
 import '@polymer/paper-input/paper-input.js';
 import '@polymer/paper-button/paper-button.js';
+import '@polymer/paper-toast/paper-toast.js';
+import '@polymer/paper-dialog/paper-dialog.js';
+
 
 
 class Formpage extends PolymerElement{   static get properties() {
@@ -75,6 +78,9 @@ _stateChanged(newVal, oldVal) {
     connectedCallback() {
       super.connectedCallback();
       this.fetchStates();
+      this.shadowRoot.querySelector('#closeButton').addEventListener('click', () => {
+        window.location.reload();
+    });
     }
 
     _currentStepChanged(newStep, oldStep) {
@@ -120,7 +126,9 @@ _stateChanged(newVal, oldVal) {
         })
         .then(data => {
           console.log(data);
+          this.shadowRoot.querySelector('#toast').show();
           this.set('currentStep', this.currentStep + 1);
+          this.showDialog(formData);
         })
         .catch(error => {
           console.error('Error:', error);
@@ -233,6 +241,23 @@ _stateChanged(newVal, oldVal) {
       // alert("Please fill in all required fields.");
     }
   }
+
+
+  showDialog(formData) {
+    const dialog = this.shadowRoot.querySelector('#dialog');
+    this.shadowRoot.querySelector('#name').textContent = formData.name;
+    this.shadowRoot.querySelector('#email').textContent = formData.email;
+    this.shadowRoot.querySelector('#address').textContent = formData.address;
+    this.shadowRoot.querySelector('#dob').textContent = formData.dob;
+    this.shadowRoot.querySelector('#mobile').textContent = formData.mobile;
+    this.shadowRoot.querySelector('#pan').textContent = formData.pan;
+    this.shadowRoot.querySelector('#aadhar').textContent = formData.aadhar;
+    this.shadowRoot.querySelector('#age').textContent = formData.age;
+    this.shadowRoot.querySelector('#district').textContent = formData.district;
+    this.shadowRoot.querySelector('#state').textContent = formData.state;
+    dialog.open();
+  }
+
   static get template(){
 
       return html `
@@ -355,6 +380,29 @@ _stateChanged(newVal, oldVal) {
       margin-right:10%;
      text-align:right;
         }
+
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        th, td {
+          padding: 8px 12px;
+          border: 1px solid #ddd;
+        }
+        th {
+          background-color: #f2f2f2;
+        }
+
+        paper-dialog {
+          width: 75vw; /* 50% of the viewport width */
+          height: 75vh; /* 50% of the viewport height */
+          max-width: none;
+          max-height: none;
+        }
+        paper-dialog table {
+          width: 100%;
+        }
+
       </style>
      
       <h1>form</h1>
@@ -429,6 +477,57 @@ _stateChanged(newVal, oldVal) {
       </template>
     
       </div>
+
+      <paper-toast id="toast" text="Form data saved successfully!"></paper-toast>
+
+ <paper-dialog id="dialog">
+        <h2>Form Data</h2>
+        <table>
+          <tr>
+            <th>Name</th>
+            <td id="name"></td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td id="email"></td>
+          </tr>
+          <tr>
+            <th>Mobile</th>
+            <td id="mobile"></td>
+          </tr>
+          <tr>
+            <th>Pan Card</th>
+            <td id="pan"></td>
+          </tr>
+          <tr>
+            <th>Aadhar Card</th>
+            <td id="aadhar"></td>
+          </tr>
+          <tr>
+            <th>Date of Birth</th>
+            <td id="dob"></td>
+          </tr>
+          <tr>
+            <th>Age</th>
+            <td id="age"></td>
+          </tr>
+          <tr>
+            <th>Address</th>
+            <td id="address"></td>
+          </tr>
+          <tr>
+            <th>State</th>
+            <td id="state"></td>
+          </tr>
+          <tr>
+            <th>District</th>
+            <td id="district"></td>
+          </tr>
+        </table>
+        <div class="buttons">
+          <paper-button id="closeButton" dialog-dismiss>Close</paper-button>
+        </div>
+      </paper-dialog>
      
       `;
   }

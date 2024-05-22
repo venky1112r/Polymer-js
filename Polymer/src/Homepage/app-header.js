@@ -280,13 +280,11 @@ class Header extends PolymerElement{
        justify-content:center;
        width:212px;
        height:40px;
-       background:url(../images/tab-nav2.png) 0 0/100% auto no-repeat;
        color:#fff;
        margin:0 -25px
    }
    .header-right-bottom .nav-tabs>li>a:before{
        content:'';
-       background:url(../images/tab-nav-side.png) no-repeat;
        height:40px;
        width:62px;
        position:absolute;
@@ -460,14 +458,12 @@ class Header extends PolymerElement{
     }
  
         _dataChanged(newVal, oldVal) {
-            console.log('Login state changed:', newVal);
             this._render();
         }
     
      ready() {
        super.ready();
          const isLoggedIn = sessionStorage.getItem('isLoggedIn') ;
-         console.log("check login "+isLoggedIn);
          
          this.data = isLoggedIn ; // Convert to boolean
 
@@ -496,7 +492,6 @@ class Header extends PolymerElement{
   
 
     _renderLoginButton() {
- console.log("check render login button");
 
             // If user is not logged in, render a button with login functionality
             return html`
@@ -531,14 +526,12 @@ class Header extends PolymerElement{
             
         }
         internet(){
-            console.log("Internet Banking Personal Login clicked");
            
 
             this.set('routeData.page','internet')
            }
 
     _renderProfileDropdown() {
-        console.log("check render profile dropdown");
 
         return html`
       
@@ -557,13 +550,11 @@ class Header extends PolymerElement{
         `;
     }
     _toggleProfileDropdown() {
-        console.log("check toggle profile dropdown");
         const profileDropdown = this.shadowRoot.querySelector('#profileDropdown');
         profileDropdown.classList.toggle('show'); // Toggle visibility of the dropdown
     }
 
     _render() {
-        console.log("check render header"); 
 
         
         const topButtonContainer = this.shadowRoot.querySelector('#topButtonContainer');
@@ -634,15 +625,17 @@ class Header extends PolymerElement{
         }
     
     _logout() {
-        console.log("logout clicked");
         // Handle logout action
         // Perform any necessary actions like clearing session, updating UI, etc.
         sessionStorage.setItem('isLoggedIn','false');
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('loginTime');
         this.data = false;
-        // this._render(); // Update UI after logout    
+        // this._render(); // Update UI after logout 
+       
         this.set('routeData.page','home');
+        window.location.reload();  
+       
     }
  
 }

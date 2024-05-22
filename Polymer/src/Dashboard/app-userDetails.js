@@ -90,16 +90,12 @@ class Userdetails extends PolymerElement{
        }
     }
 
-    _handleLoginStateChanged(event) {
-        console.log('Login state changed:', event.detail.loggedIn);
-        const loggedIn = event.detail.loggedIn;
-        
-    }
     _handleMenuItemSelected(event) {
         const displayComponent = this.shadowRoot.querySelector('display-component');
         if (displayComponent) {
             // Update the selectedPage property of display-component
             displayComponent.selectedPage = event.detail.page;
+            
         }
     }
     _handleLoginSuccess(event) {
@@ -108,7 +104,7 @@ class Userdetails extends PolymerElement{
         // console.log('Received user name from login-success event:', userName);
         this.set('userName', userName);
         
-        this.data=true;
+        this.data=true; 
     }
    
 }
