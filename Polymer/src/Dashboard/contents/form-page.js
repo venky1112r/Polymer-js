@@ -79,7 +79,7 @@ _stateChanged(newVal, oldVal) {
       super.connectedCallback();
       this.fetchStates();
       this.shadowRoot.querySelector('#closeButton').addEventListener('click', () => {
-        window.location.reload();
+          window.location.reload();
     });
     }
 
@@ -402,6 +402,7 @@ _stateChanged(newVal, oldVal) {
         paper-dialog table {
           width: 100%;
         }
+        
 
       </style>
      
@@ -439,7 +440,7 @@ _stateChanged(newVal, oldVal) {
    <paper-input label="Pan Card" pattern="[A-Z]{5}[0-9]{4}[A-Z]" value={{pan}} required error-message="Please enter a pan no" ></paper-input>
    <paper-input label="Aadhar Card" type="number" pattern="[0-9]{4} [0-9]{4} [0-9]{4}"  value={{aadhar}} required error-message="Please enter a Aadhar no"  ></paper-input>
    <paper-input label="Date of Birth" type="date" value={{dob}}></paper-input>
-   <paper-input label="Age" type="number" value={{age}}></paper-input>
+   <paper-input label="Age" type="text" pattern="[0-9]{2}" inputmode="numeric" value={{age}}></paper-input>
   </div>
   <div class="formbtn">
    <paper-button class="proceedbtn" on-click="proceed" raised >Proceed</paper-button>
